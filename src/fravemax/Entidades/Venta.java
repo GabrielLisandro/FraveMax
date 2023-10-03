@@ -52,7 +52,8 @@ public class Venta {
 
     @Override
     public String toString() {
-        return "Venta{" + "idVenta=" + idVenta + ", cliente=" + cliente + ", fechaVenta=" + fechaVenta + '}';
+        return "Venta N°: " + idVenta + ", Cliente: " + cliente + 
+                ", FechaVenta: " + fechaVenta;
     }
    
    
