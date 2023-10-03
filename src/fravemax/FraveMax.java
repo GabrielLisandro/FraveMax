@@ -5,17 +5,26 @@
  */
 package fravemax;
 
+import fravemax.AccesoADatos.ClienteData;
+import fravemax.Entidades.Cliente;
+
 /**
  *
  * @author kamar
  */
 public class FraveMax {
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
-        // TODO code application logic here
+      
+        Cliente cliente = new Cliente("Montiel", "Lucas", "Santiago 825" , "+540115523663");
+        ClienteData cd = new ClienteData();
+        cd.agregarCliente(cliente);
+        
+        
+        
+        
+        
     }
     
 }

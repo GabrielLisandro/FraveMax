@@ -11,7 +11,9 @@ public class Cliente {
     private String nombre;
     private String domicilio;
     private String telefono;
-
+    private int dni;
+    private boolean estado;
+    
     public Cliente() {
     }
 
@@ -21,6 +23,8 @@ public class Cliente {
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.telefono = telefono;
+        this.dni= dni;
+        this.estado = estado;
     }
 
     public Cliente(String apellido, String nombre, String domicilio, String telefono) {
@@ -28,6 +32,8 @@ public class Cliente {
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.telefono = telefono;
+        this.dni= dni;
+        this.estado = estado;
     }
 
     public int getIdCliente() {
