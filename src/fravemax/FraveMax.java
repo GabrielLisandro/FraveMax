@@ -17,7 +17,7 @@ public class FraveMax {
    
     public static void main(String[] args) {
       
-        Cliente cliente = new Cliente("Montiel", "Lucas", "Santiago 825" , "+540115523663");
+        Cliente cliente = new Cliente("Miño Juarez", "Maria Lucila", "Falucho 825" , "+540115784663", true, 19186457);
         ClienteData cd = new ClienteData();
         cd.agregarCliente(cliente);
         
