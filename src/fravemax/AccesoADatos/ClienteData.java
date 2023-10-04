@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ClienteData {
@@ -20,8 +24,8 @@ public class ClienteData {
 
     public void agregarCliente(Cliente cliente) {
 
-        String agreClienteSql = "INSERT INTO cliente(apellido, nombre, domicilio, telefono,estado)"
-                + " VALUES (?,?,?,?,?)";
+        String agreClienteSql = "INSERT INTO cliente(apellido, nombre, domicilio, telefono, estado, DNI)"
+                + " VALUES (?,?,?,?,?,?)";
 
         try {
             PreparedStatement agreClientePs = connection.prepareStatement(agreClienteSql, Statement.RETURN_GENERATED_KEYS);
@@ -31,6 +35,7 @@ public class ClienteData {
             agreClientePs.setString(3, cliente.getDomicilio());
             agreClientePs.setString(4, cliente.getTelefono());
             agreClientePs.setBoolean(5, true);
+            agreClientePs.setInt(6, cliente.getDni());
             agreClientePs.executeUpdate();
             ResultSet rs = agreClientePs.getGeneratedKeys();
 
@@ -136,8 +141,8 @@ public class ClienteData {
 
     public Cliente buscarClienteDni(int dni) {
 
-        String buscarClienteSql = "SELECT idCliente , apellido, nombre, domicilio, telefono, estado, dni"
-                + "estado FROM alumno WHERE dni = ? AND estado = true";
+        String buscarClienteSql = "SELECT idCliente , apellido, nombre, domicilio, telefono, estado, DNI"
+                + " FROM cliente WHERE DNI = ? ";
 
         Cliente cliente = null;
 
@@ -149,22 +154,52 @@ public class ClienteData {
             if (rs.next()) {
                 cliente = new Cliente();
                 cliente.setIdCliente(rs.getInt("idCliente"));
-                cliente.setDni(rs.getInt("DNI"));
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setDomicilio(rs.getString("domicilio"));
                 cliente.setTelefono(rs.getString("telefono"));
                 cliente.setEstado(true);
-
+                cliente.setDni(rs.getInt("DNI"));
+                
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontro el dni del Alumno buscado");
+                JOptionPane.showMessageDialog(null, "No se encontro el dni del Ciente buscado");
             }
             buscarClientePs.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la busqueda del Alumno " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la busqueda del Cliente ");
         }
         return cliente;
+    }
+
+    public List<Cliente> ListarClientes() {
+
+        String jur = "select * from cliente where estado = 1";
+
+        List<Cliente> cli = new ArrayList<Cliente>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(jur);
+            ResultSet set = ps.executeQuery();
+
+            while (set.next()) {
+                Cliente clie = new Cliente();
+                clie.setIdCliente(set.getInt("idCliente"));
+                clie.setApellido(set.getString("apellido"));
+                clie.setNombre(set.getString("nombre"));
+                clie.setDomicilio(set.getString("domicilio"));
+                clie.setTelefono(set.getString("telefono"));
+                clie.setEstado(set.getBoolean("estado"));
+                clie.setDni(set.getInt("DNI"));
+
+                cli.add(clie);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: No se pudo encontrar una lista.");
+        }
+        return cli;
     }
 
 }
