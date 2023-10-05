@@ -6,7 +6,9 @@
 package fravemax;
 
 import fravemax.AccesoADatos.ClienteData;
+import fravemax.AccesoADatos.ProductoData;
 import fravemax.Entidades.Cliente;
+import fravemax.Entidades.Producto;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -35,11 +37,28 @@ public class FraveMax {
         }*/
         
         
-        Cliente enco;
-        enco= cd.buscarClienteDni(11546457);
-        JOptionPane.showMessageDialog(null, enco.toString()+ " "+ enco.isEstado());
+       // Cliente enco;
+      //  enco= cd.buscarClienteDni(11546457);
+       // JOptionPane.showMessageDialog(null, enco.toString()+ " "+ enco.isEstado());
         
         
+       Producto producto = new Producto (19, " Lavarropa Drean Carga Superior 16kg" , "Lav. automatico CF Inventer. Cap.8K. 35 programas. 1400rpm. Sist. de lavado europeo. Tambor ac.inox. Controles manuales-pulsadores. 1/2 carga. Expulsion de centrif. Antiarrugas. Display Led. Lavado rapido. Control de temp. Eco wash / Eco soft. EE A+++." ,  320000.00, 6, true ); 
+       
+       ProductoData pd = new ProductoData ();
+      // pd.agregarProducto(producto);
+       
+     //  pd.borrarProducto(19);
+       
+      //pd.modificarProducto(producto);
+       
+      
+        for (Producto pr: pd.ListarProducto()) {
+            
+            JOptionPane.showMessageDialog(null, pr.toString());
+            
+            
+        }
+       
         
     }
     
