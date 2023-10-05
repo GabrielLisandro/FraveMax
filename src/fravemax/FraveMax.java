@@ -52,12 +52,12 @@ public class FraveMax {
       //pd.modificarProducto(producto);
        
       
-        for (Producto pr: pd.ListarProducto()) {
+        //for (Producto pr: pd.ListarProducto()) {
             
-            JOptionPane.showMessageDialog(null, pr.toString());
+           // JOptionPane.showMessageDialog(null, pr.toString());
             
             
-        }
+       // }
        
         
     }
