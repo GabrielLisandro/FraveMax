@@ -7,8 +7,11 @@ package fravemax;
 
 import fravemax.AccesoADatos.ClienteData;
 import fravemax.AccesoADatos.ProductoData;
+import fravemax.AccesoADatos.VentaData;
 import fravemax.Entidades.Cliente;
 import fravemax.Entidades.Producto;
+import fravemax.Entidades.Venta;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -42,9 +45,9 @@ public class FraveMax {
        // JOptionPane.showMessageDialog(null, enco.toString()+ " "+ enco.isEstado());
         
         
-       Producto producto = new Producto (19, " Lavarropa Drean Carga Superior 16kg" , "Lav. automatico CF Inventer. Cap.8K. 35 programas. 1400rpm. Sist. de lavado europeo. Tambor ac.inox. Controles manuales-pulsadores. 1/2 carga. Expulsion de centrif. Antiarrugas. Display Led. Lavado rapido. Control de temp. Eco wash / Eco soft. EE A+++." ,  320000.00, 6, true ); 
-       
-       ProductoData pd = new ProductoData ();
+//       Producto producto = new Producto (19, " Lavarropa Drean Carga Superior 16kg" , "Lav. automatico CF Inventer. Cap.8K. 35 programas. 1400rpm. Sist. de lavado europeo. Tambor ac.inox. Controles manuales-pulsadores. 1/2 carga. Expulsion de centrif. Antiarrugas. Display Led. Lavado rapido. Control de temp. Eco wash / Eco soft. EE A+++." ,  320000.00, 6, true ); 
+//       
+//       ProductoData pd = new ProductoData ();
       // pd.agregarProducto(producto);
        
      //  pd.borrarProducto(19);
@@ -59,7 +62,9 @@ public class FraveMax {
             
        // }
        
-        
+       Venta vent = new Venta(15, LocalDate.of(2023,06,22));
+       VentaData veDa = new VentaData();
+       veDa.ingresarVenta(vent);
     }
     
 }
