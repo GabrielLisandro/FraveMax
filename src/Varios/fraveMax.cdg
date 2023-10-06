@@ -2,7 +2,7 @@
 
 <ClassDiagram name="fraveMax">
   <ClassDiagramComponents>
-    <Class name="Cliente" package="" visibility="public" xPosition="27.0" yPosition="6.0">
+    <Class name="Cliente" package="" visibility="public" xPosition="27.0" yPosition="5.0">
       <Fields>
         <Field name="idCliente" type="int" visibility="private"/>
         <Field name="apellido" type="String" visibility="private"/>
@@ -13,6 +13,9 @@
         <Field name="dni" type="int" visibility="private"/>
       </Fields>
       <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="asd"/>
+        </Constructor>
         <Constructor visibility="public"/>
       </Constructors>
       <Methods>
@@ -63,6 +66,8 @@
           <Argument type="int" name="dni"/>
         </Method>
         <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="untitledMethod1" returnType="void" visibility="public"/>
+        <Method name="untitledMethod2" returnType="void" visibility="public"/>
       </Methods>
     </Class>
     <Class name="DetalleVenta" package="" visibility="public" xPosition="1039.0" yPosition="735.0">
