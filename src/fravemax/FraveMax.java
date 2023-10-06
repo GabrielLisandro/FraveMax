@@ -61,8 +61,9 @@ public class FraveMax {
             
             
        // }
+       Cliente jopse = cd.buscarCliente(10);
        
-       Venta vent = new Venta(15, LocalDate.of(2023,06,22));
+       Venta vent = new Venta(jopse, LocalDate.of(2023,06,22));
        VentaData veDa = new VentaData();
        veDa.ingresarVenta(vent);
     }

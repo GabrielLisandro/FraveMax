@@ -171,6 +171,38 @@ public class ClienteData {
         }
         return cliente;
     }
+    public Cliente buscarCliente(int id) {
+
+        String buscarClienteSql = "SELECT idCliente , apellido, nombre, domicilio, telefono, estado, DNI"
+                + " FROM cliente WHERE idCliente = ? ";
+
+        Cliente cliente = null;
+
+        try {
+            PreparedStatement buscarClientePs = connection.prepareStatement(buscarClienteSql);
+            buscarClientePs.setInt(1, id);
+            ResultSet rs = buscarClientePs.executeQuery();
+
+            if (rs.next()) {
+                cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setApellido(rs.getString("apellido"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setDomicilio(rs.getString("domicilio"));
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setEstado(true);
+                cliente.setDni(rs.getInt("DNI"));
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro el id del Ciente buscado");
+            }
+            buscarClientePs.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la busqueda del Cliente ");
+        }
+        return cliente;
+    }
 
     public List<Cliente> ListarClientes() {
 
