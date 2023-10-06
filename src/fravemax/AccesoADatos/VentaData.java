@@ -53,5 +53,7 @@ public class VentaData {
         }
 
     }
+    
+    public void borrarVenti()
 
 }

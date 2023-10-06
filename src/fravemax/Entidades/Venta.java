@@ -1,4 +1,3 @@
-
 package fravemax.Entidades;
 
 import java.time.LocalDate;
@@ -8,22 +7,26 @@ import java.time.LocalDate;
  * @author kamar
  */
 public class Venta {
-   private int idVenta;
-   private Cliente cliente;
-   private LocalDate fechaVenta;
+
+    private int idVenta;
+    private Cliente cliente;
+    private LocalDate fechaVenta;
+    private boolean estado;
 
     public Venta() {
     }
 
-    public Venta(Cliente cliente, LocalDate fechaVenta) {
+    public Venta(Cliente cliente, LocalDate fechaVenta, boolean estado) {
         this.cliente = cliente;
         this.fechaVenta = fechaVenta;
+        this.estado = estado;
     }
 
-    public Venta(int idVenta, Cliente cliente, LocalDate fechaVenta) {
+    public Venta(int idVenta, Cliente cliente, LocalDate fechaVenta, boolean estado) {
         this.idVenta = idVenta;
         this.cliente = cliente;
         this.fechaVenta = fechaVenta;
+        this.estado = estado;
     }
 
     public int getIdVenta() {
@@ -50,11 +53,18 @@ public class Venta {
         this.fechaVenta = fechaVenta;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "Venta N°: " + idVenta + ", Cliente: " + cliente + 
-                ", FechaVenta: " + fechaVenta;
+        return "Venta N°: " + idVenta + ", Cliente: " + cliente
+                + ", FechaVenta: " + fechaVenta;
     }
-   
-   
+
 }

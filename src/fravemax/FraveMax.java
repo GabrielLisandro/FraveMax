@@ -24,7 +24,7 @@ public class FraveMax {
    
     public static void main(String[] args) {
       
-//        Cliente cliente = new Cliente(16,"Miño Juarez", "Maria Lucila Jacinta", "Falucho 1825" , "+540115784663", true, 11546457);
+   //Cliente cliente = new Cliente(19,"Miño Juarez", "Maria Lucila Jacinta", "Falucho 1825" , "+540115784663", true, 11546457);
         ClienteData cd = new ClienteData();
        // cd.agregarCliente(cliente);
        // cd.modificarCliente(cliente);
@@ -61,9 +61,9 @@ public class FraveMax {
             
             
        // }
-       Cliente jopse = cd.buscarCliente(10);
+       Cliente jopse = cd.buscarCliente(9);
        
-       Venta vent = new Venta(jopse, LocalDate.of(2023,06,22));
+       Venta vent = new Venta(jopse, LocalDate.of(2023,10,02), true);
        VentaData veDa = new VentaData();
        veDa.ingresarVenta(vent);
     }
