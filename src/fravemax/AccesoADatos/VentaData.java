@@ -30,7 +30,7 @@ public class VentaData {
              PreparedStatement ps = connection.prepareStatement(ingresarVenta, Statement.RETURN_GENERATED_KEYS);
                 
               ps.setInt(1, vent.getIdVenta());
-              ps.setInt(2, vent.getCliente());
+              ps.setInt(2, vent.getCliente().getIdCliente());
                 
                 
                 
