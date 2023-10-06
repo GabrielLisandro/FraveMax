@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -79,15 +80,15 @@ public class VentaData {
 
     }
 
-    public void modiVenta(Venta venttana) {
+    public void modiVenta(int idVenta, int idCliente, LocalDate fechaVenta) {
         String ui = "Update venta set idCliente=?, fechaVenta=?"
                 + "Where idVenta=?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(ui);
-            ps.setInt(1, venttana.getCliente().getIdCliente());
-            ps.setDate(2, Date.valueOf(venttana.getFechaVenta()));
-            ps.setInt(3, venttana.getIdVenta());
+            ps.setInt(1,idCliente);
+            ps.setDate(2, Date.valueOf(fechaVenta));
+            ps.setInt(3, idVenta);
             int exito = ps.executeUpdate();
 
             if (exito == 1) {

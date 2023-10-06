@@ -63,9 +63,12 @@ public class FraveMax {
        // }
        Cliente jopse = cd.buscarCliente(9);
        
-       Venta vent = new Venta(jopse, LocalDate.of(2023,10,02), true);
+       Venta vent = new Venta(jopse, LocalDate.of(2022,01,31), true);
        VentaData veDa = new VentaData();
-       veDa.ingresarVenta(vent);
+       //veDa.ingresarVenta(vent);
+       veDa.borrarVenti(10);
+       veDa.modiVenta(9,10,LocalDate.of(2022, 01, 31));
+      // veDa.lister();
     }
     
 }
