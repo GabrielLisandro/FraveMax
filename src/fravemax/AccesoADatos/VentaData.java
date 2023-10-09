@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import jdk.nashorn.internal.ir.LiteralNode;
 
 public class VentaData {
 
@@ -112,7 +111,7 @@ public class VentaData {
             while (rs.next()) {
                 Venta vent = new Venta();
                 vent.setIdVenta(rs.getInt("idVenta"));
-                Cliente cliente = cd.buscarCliente(rs.getInt("idcliente"));
+                Cliente cliente = cd.buscarCliente(rs.getInt("idCliente"));
                 vent.setCliente(cliente);
                 vent.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
                 vent.setEstado(rs.getBoolean("estado"));
@@ -125,6 +124,37 @@ public class VentaData {
         }
 
         return lister();
+    }
+
+    
+    public Venta buscarVenta(int id) {
+
+        String buscarVentSql = "SELECT idVenta , idCliente, fechaVent, estado"
+                + " FROM venta WHERE idVenta = ? ";
+
+        Venta venta = null;
+
+        try {
+            PreparedStatement buscarVentPs = connection.prepareStatement(buscarVentSql);
+            buscarVentPs.setInt(1, id);
+            ResultSet rs = buscarVentPs.executeQuery();
+
+            if (rs.next()) {
+                venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setCliente (rs.getInt("idCliente"));
+                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+                venta.setEstado(true);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro la Venta");
+            }
+            buscarVentPs.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la busqueda de la Venta ");
+        }
+        return venta;
     }
 
 }

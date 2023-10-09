@@ -164,8 +164,42 @@ public void modificarProducto(Producto producto){
     }
     
     
-    
-}
+  public void buscarProducto(int id){
+  String buscarProdSql = "SELECT nombre, descripcion, precio, stock, estado"
+                + " FROM producto WHERE idProducto = ? ";
+
+     
+
+        try {
+            PreparedStatement buscarProdPs = connection.prepareStatement(buscarProdSql);
+            buscarProdPs.setInt(1, id);
+            ResultSet rs = buscarProdPs.executeQuery();
+
+            if (rs.next()) {
+                
+                Producto producto = new Producto();
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombreProducto(rs.getString("nombre"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setPrecioActual(rs.getDouble("precio"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setEstado(true);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro el Producto");
+            }
+            buscarProdPs.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la busqueda del Producto ");
+        }
+        return;
+    }
+  
+
+  
+  }  
+
         
 
 
