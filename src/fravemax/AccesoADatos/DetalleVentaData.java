@@ -2,11 +2,14 @@
 package fravemax.AccesoADatos;
 
 import fravemax.Entidades.DetalleVenta;
+import fravemax.Entidades.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -55,4 +58,44 @@ public class DetalleVentaData {
      }
     
     
+     public void modificarDetalleVenta(int cantidad, int idVenta, double precio, int idProducto) {
+    
+         
+         String mdvSQL = "UPDATE detalleventa SET cantidad = ?, idVenta = ? , precio = ? ,"
+                 + " idProducto = ? WHERE idDetalle = ? ";
+         
+        try {
+            PreparedStatement ps = connection.prepareStatement(mdvSQL);
+        
+        
+            ps.setInt(1,cantidad);
+            ps.setInt(2, idVenta);
+            ps.setDouble(3, precio);
+            ps.setInt(4, idProducto);
+           
+            int filas = ps.executeUpdate() ;
+            
+            if (filas == 1) {
+                
+                JOptionPane.showMessageDialog(null, "Se modifico el detalle de venta");
+               
+                
+            }else {
+                
+                 JOptionPane.showMessageDialog(null, "No se pudo modificar el detalle de venta");
+            }
+                
+            
+        
+        
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error de conexion con la base de datos");
+        }
+         
+         
+         
+         
+    
+}
+     
 }

@@ -18,7 +18,7 @@ import javax.swing.UIManager;
  * @author kamar
  */
 public class FraveMax {
-    
+
     public static void main(String[] args) {
 
         //Cliente cliente = new Cliente(19,"Miño Juarez", "Maria Lucila Jacinta", "Falucho 1825" , "+540115784663", true, 11546457);
@@ -38,39 +38,76 @@ public class FraveMax {
         // Cliente enco;
         // enco= cd.buscarClienteDni(11546457);
         // JOptionPane.showMessageDialog(null, enco.toString()+ " "+ enco.isEstado());
-        Producto producto = new Producto(1, " SMART LED ANDROID TV PHILIPS 32 PULGADAS HD 32PHD6917/77", "Televisor Smart / Android. Pantalla: TV LED HD. Resolucion de panel: 1366 x 768 p.", 117000.00, 6, true);
+      //  Producto producto = new Producto(1, " SMART LED ANDROID TV PHILIPS 32 PULGADAS HD 32PHD6917/77", "Televisor Smart / Android. Pantalla: TV LED HD. Resolucion de panel: 1366 x 768 p.", 117000.00, 6, true);
         ProductoData pd = new ProductoData();
 
-        // pd.agregarProducto(producto);
-        // pd.borrarProducto(19);
-        // pd.modificarProducto(producto);
+       
+        
+
+// pd.agregarProducto(producto);
+        
+
+
+// pd.borrarProducto(19);
+       
+        
+
+
+// pd.modificarProducto(producto);
 //       for (Producto pr: pd.ListarProducto()) {
 //           JOptionPane.showMessageDialog(null, pr.toString());
 //        }
-    Cliente jopse = cd.buscarCliente(9);
-        Venta vent = new Venta(jopse, LocalDate.of(2023, 10, 02), true);
-        VentaData veDa = new VentaData();
 
+
+
+//    Cliente jopse = cd.buscarCliente(9);
+
+
+
+
+//        Venta vent = new Venta(jopse, LocalDate.of(2023, 10, 02), true);
+        VentaData veDa = new VentaData();
 //       veDa.ingresarVenta(vent);
 //       veDa.borrarVenti(1);
 //       veDa.modiVenta(1, 1, LocalDate.of(2023, 10, 2));
 
-        /* for(Venta ve : veDa.lister()){
+       
+
+
+/* for(Venta ve : veDa.lister()){
         JOptionPane.showMessageDialog(null, ve.toString());
         }
 
 //    }
-    }*/
-//       veDa.buscarVenta(8);
-//Producto prdu;
+//    }*/
+
+
+//       veDa.buscarVenta(1);
+//       JOptionPane.showMessageDialog(null, veDa.buscarVenta(3));
+
+
+//        Producto prdu;
 //        prdu = pd.buscarProducto(1);
 //        pd.buscarProducto(1);
-//        JOptionPane.showMessageDialog(null, pd.toString());
-//        Venta ve = veDa.buscarVenta(8);
-//        DetalleVenta dv = new DetalleVenta();
-//        DetalleVentaData dvd = new DetalleVentaData();
-//        
-//        dvd.agregarDetalleVenta(dv);
+//        JOptionPane.showMessageDialog(null, pd.buscarProducto(1));
+      
+
+
+        Venta ve = veDa.buscarVenta(8);
+        Producto producto = pd.buscarProducto(1);
+       // DetalleVenta dv = new DetalleVenta(1, ve, 117000.00, producto);
+        DetalleVentaData dvd = new DetalleVentaData();
+        
+        //dvd.agregarDetalleVenta(dv);
+
+        
+        
+        dvd.modificarDetalleVenta(1, 2, 118000.00, 1);
+        
+        
+        
+        
+        
         
     }
 }

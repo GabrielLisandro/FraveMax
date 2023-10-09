@@ -129,7 +129,7 @@ public class VentaData {
     
     public Venta buscarVenta(int id) {
 
-        String buscarVentSql = "SELECT idVenta , idCliente, fechaVent, estado"
+        String buscarVentSql = "SELECT idVenta , idCliente, fechaVenta"
                 + " FROM venta WHERE idVenta = ? ";
 
         Venta venta = null;
@@ -141,10 +141,17 @@ public class VentaData {
 
             if (rs.next()) {
                 venta = new Venta();
+                
                 venta.setIdVenta(rs.getInt("idVenta"));
-                venta.setCliente (rs.getInt("idCliente"));
+                
+                Cliente cliente = cd.buscarCliente(rs.getInt("idCliente"));
+                venta.setCliente(cliente);
+                
                 venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
-                venta.setEstado(true);
+                
+               
+                
+                
                 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontro la Venta");
