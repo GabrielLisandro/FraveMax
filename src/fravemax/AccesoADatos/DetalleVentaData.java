@@ -58,44 +58,55 @@ public class DetalleVentaData {
      }
     
     
-     public void modificarDetalleVenta(int cantidad, int idVenta, double precio, int idProducto) {
+     public void modificarDetalleVenta(int idDetalle, int cantidad, int idVenta, double precio, int idProducto) {
     
-         
          String mdvSQL = "UPDATE detalleventa SET cantidad = ?, idVenta = ? , precio = ? ,"
                  + " idProducto = ? WHERE idDetalle = ? ";
          
         try {
             PreparedStatement ps = connection.prepareStatement(mdvSQL);
         
-        
             ps.setInt(1,cantidad);
             ps.setInt(2, idVenta);
             ps.setDouble(3, precio);
             ps.setInt(4, idProducto);
-           
+            ps.setInt(5, idDetalle);
+            
             int filas = ps.executeUpdate() ;
             
             if (filas == 1) {
                 
                 JOptionPane.showMessageDialog(null, "Se modifico el detalle de venta");
                
-                
             }else {
-                
-                 JOptionPane.showMessageDialog(null, "No se pudo modificar el detalle de venta");
+                JOptionPane.showMessageDialog(null, "No se pudo modificar el detalle de venta");
             }
-                
-            
-        
-        
+             
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null, "Error de conexion con la base de datos");
         }
-         
-         
-         
-         
-    
+    }
+     
+     
+       public void borrarDetalleVenta (int id){
+       
+        try {
+            String bdvSql = "DELETE FROM detalleVenta WHERE idDetalle";
+            
+            PreparedStatement PSbdv = connection.prepareStatement(bdvSql);
+            
+            int registro = PSbdv.executeUpdate();
+            JOptionPane.showMessageDialog( null, "Se eliminó Correctamente");
+            
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Error de conexion con la base de datos");
+        }
+       
+       
+       
+       
+       
+       }
 }
      
-}
+
