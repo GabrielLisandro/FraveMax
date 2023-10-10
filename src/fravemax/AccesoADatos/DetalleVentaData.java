@@ -4,10 +4,14 @@ package fravemax.AccesoADatos;
 import fravemax.Entidades.DetalleVenta;
 import fravemax.Entidades.Producto;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -90,23 +94,57 @@ public class DetalleVentaData {
      
        public void borrarDetalleVenta (int id){
        
-        try {
-            String bdvSql = "DELETE FROM detalleVenta WHERE idDetalle";
-            
+           String bdvSql = "DELETE FROM detalleVenta WHERE idDetalle = ?";
+                   
+       try {
             PreparedStatement PSbdv = connection.prepareStatement(bdvSql);
+            
+            PSbdv.setInt(1, id);
             
             int registro = PSbdv.executeUpdate();
             JOptionPane.showMessageDialog( null, "Se eliminó Correctamente");
             
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error de conexion con la base de datos");
+          
+            JOptionPane.showMessageDialog(null, "Error de conexion con la base de datos");
         }
        
        
-       
-       
-       
        }
+
+//Listar todos los productos de una venta en una fecha específica.
+
+
+       
+       public List<Producto> listarProductosDeVentaEnFecha(LocalDate fecha) {
+    String sql = "SELECT p.* FROM detalleventa dv "
+               + "INNER JOIN venta v ON dv.idVenta = v.idVenta "
+               + "INNER JOIN producto p ON dv.idProducto = p.idProducto "
+               + "WHERE v.fechaVenta = ?";
+
+    List<Producto> productos = new ArrayList<>();
+
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setDate(1, Date.valueOf(fecha));
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Producto producto = new Producto();
+            producto.setIdProducto(rs.getInt("idProducto"));
+            producto.setNombreProducto(rs.getString("nombre"));
+            
+
+            productos.add(producto);
+        }
+    } catch (SQLException e) {
+       JOptionPane.showMessageDialog(null, "No se encontro ninguna venta en esa fecha");
+    }
+
+    return productos;
+}
+
+
+
 }
      
 

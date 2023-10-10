@@ -164,10 +164,13 @@ public void modificarProducto(Producto producto){
     }
     
     
-  public void buscarProducto(int id){
-  String buscarProdSql = "SELECT nombre, descripcion, precio, stock, estado"
+  public Producto buscarProducto(int id){
+  
+      String buscarProdSql = "SELECT nombre, descripcion, precio, stock, estado"
                 + " FROM producto WHERE idProducto = ? ";
-
+        
+  Producto producto = null;
+        
         try {
             PreparedStatement buscarProdPs = connection.prepareStatement(buscarProdSql);
             buscarProdPs.setInt(1, id);
@@ -175,8 +178,9 @@ public void modificarProducto(Producto producto){
 
             if (rs.next()) {
                 
-                Producto producto = new Producto();
-                producto.setIdProducto(rs.getInt("idProducto"));
+                producto = new Producto();
+                
+                producto.setIdProducto(id);
                 producto.setNombreProducto(rs.getString("nombre"));
                 producto.setDescripcion(rs.getString("descripcion"));
                 producto.setPrecioActual(rs.getDouble("precio"));
@@ -191,7 +195,7 @@ public void modificarProducto(Producto producto){
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la busqueda del Producto ");
         }
-        return;
+        return producto;
     }
   
 

@@ -10,6 +10,7 @@ import fravemax.Entidades.Producto;
 import fravemax.Entidades.Venta;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -76,23 +77,36 @@ VentaData veDa = new VentaData();
 
 //Producto prdu;
 //prdu = pd.buscarProducto(1);
-        
-        //pd.buscarProducto(1);
-            //JOptionPane.showMessageDialog(null, pd.buscarProducto(1));
+//        
+//        pd.buscarProducto(1);
+//            JOptionPane.showMessageDialog(null, pd.buscarProducto(1));
       
 //Venta ve = veDa.buscarVenta(8);
 //Producto producto = pd.buscarProducto(1);
-DetalleVenta dv = new DetalleVenta(1, ve, 117000.00, producto);
+DetalleVenta dv = new DetalleVenta();
 DetalleVentaData dvd = new DetalleVentaData();
         
         //dvd.agregarDetalleVenta(dv);
         
-        dvd.modificarDetalleVenta(1,3, 2, 19000.00, 4);
+       // dvd.modificarDetalleVenta(1,3, 2, 19000.00, 4);
         
-       // dvd.borrarDetalleVenta(7);
+//        dvd.borrarDetalleVenta(7);
         
-        
-        
+    
+        DetalleVentaData detalleVentaData = new DetalleVentaData();
+LocalDate fechaEspecifica = LocalDate.of(2023, 10, 10); // Cambia esta fecha por la que necesites
+List<Producto> productos = detalleVentaData.listarProductosDeVentaEnFecha(fechaEspecifica);
+
+for (Producto producto : productos) {
+    JOptionPane.showMessageDialog(null , "Producto: " + producto.getNombreProducto()+ "Cantidad: " + dv.getCantidad()  );
+   
+}
+      
         
     }
+    
+    
+    
+    
+    
 }
