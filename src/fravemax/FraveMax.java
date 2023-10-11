@@ -74,6 +74,14 @@ VentaData veDa = new VentaData();
 
         //veDa.buscarVenta(1);
             //JOptionPane.showMessageDialog(null, veDa.buscarVenta(3));
+            
+//        for(Venta veLi : veDa.listarPorFecha(LocalDate.of(2023, 10, 02))){
+//        JOptionPane.showMessageDialog(null, veLi.toString());
+//        }
+        
+        for(Venta veCl : veDa.ventasCliente(1)){
+        JOptionPane.showMessageDialog(null, veCl.toString());
+        }
 
 //Producto prdu;
 //prdu = pd.buscarProducto(1);
@@ -93,14 +101,14 @@ DetalleVentaData dvd = new DetalleVentaData();
 //        dvd.borrarDetalleVenta(7);
         
     
-        DetalleVentaData detalleVentaData = new DetalleVentaData();
-LocalDate fechaEspecifica = LocalDate.of(2023, 10, 10); // Cambia esta fecha por la que necesites
-List<Producto> productos = detalleVentaData.listarProductosDeVentaEnFecha(fechaEspecifica);
-
-for (Producto producto : productos) {
-    JOptionPane.showMessageDialog(null , "Producto: " + producto.getNombreProducto()+ "Cantidad: " + dv.getCantidad()  );
-   
-}
+//DetalleVentaData detalleVentaData = new DetalleVentaData();
+//LocalDate fechaEspecifica = LocalDate.of(2023, 10, 10); // Cambia esta fecha por la que necesites
+//List<Producto> productos = detalleVentaData.listarProductosDeVentaEnFecha(fechaEspecifica);
+//
+//for (Producto producto : productos) {
+//    JOptionPane.showMessageDialog(null , "Producto: " + producto.getNombreProducto()+ "Cantidad: " + dv.getCantidad()  );
+//   
+//}
       
         
     }

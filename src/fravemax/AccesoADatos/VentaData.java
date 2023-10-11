@@ -85,7 +85,7 @@ public class VentaData {
 
         try {
             PreparedStatement ps = connection.prepareStatement(ui);
-            ps.setInt(1,idCliente);
+            ps.setInt(1, idCliente);
             ps.setDate(2, Date.valueOf(fechaVenta));
             ps.setInt(3, idVenta);
             int exito = ps.executeUpdate();
@@ -126,7 +126,6 @@ public class VentaData {
         return lister();
     }
 
-    
     public Venta buscarVenta(int id) {
 
         String buscarVentSql = "SELECT idVenta , idCliente, fechaVenta"
@@ -141,18 +140,14 @@ public class VentaData {
 
             if (rs.next()) {
                 venta = new Venta();
-                
+
                 venta.setIdVenta(rs.getInt("idVenta"));
-                
+
                 Cliente cliente = cd.buscarCliente(rs.getInt("idCliente"));
                 venta.setCliente(cliente);
-                
+
                 venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
-                
-               
-                
-                
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontro la Venta");
             }
@@ -164,4 +159,71 @@ public class VentaData {
         return venta;
     }
 
+    public List<Venta> listarPorFecha(LocalDate fechaVenta) {
+
+        String Sql = "SELECT * FROM venta WHERE fechaVenta = ?";
+
+        List<Venta> listaFecha = new ArrayList<>();
+        Venta venta = null;
+
+        try {
+            PreparedStatement psList = connection.prepareStatement(Sql);
+
+            psList.setDate(1, Date.valueOf(fechaVenta));
+            ResultSet rs = psList.executeQuery();
+
+            while (rs.next()) {
+
+                venta = new Venta();
+                Cliente cl = cd.buscarCliente(rs.getInt("idCliente"));
+                venta.setCliente(cl);
+
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+                venta.setEstado(true);
+
+                listaFecha.add(venta);
+            }
+
+            psList.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectar con la Base de Datos");
+        }
+        return listaFecha;
+    }
+
+    public List<Venta> ventasCliente(int id) {
+
+        String sqlVC = "SELECT * FROM venta WHERE idCliente = ? ";
+
+        List<Venta> listaClient = new ArrayList<>();
+        Venta venta = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement(sqlVC);
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                venta = new Venta();
+                Cliente cl = cd.buscarCliente(rs.getInt("idCliente"));
+                venta.setCliente(cl);
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+                venta.setEstado(true);
+
+                listaClient.add(venta);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la conexion de la Base de Datos");
+        }
+        return listaClient;
+    }
+
+    
+    
 }

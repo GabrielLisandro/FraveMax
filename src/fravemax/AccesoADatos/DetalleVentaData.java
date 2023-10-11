@@ -3,6 +3,7 @@ package fravemax.AccesoADatos;
 
 import fravemax.Entidades.DetalleVenta;
 import fravemax.Entidades.Producto;
+import fravemax.Entidades.Venta;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -143,7 +144,53 @@ public class DetalleVentaData {
     return productos;
 }
 
+public List<DetalleVenta> productoXCliente (int idProducto){
 
+String SqlPr = "SELECT detalleventa.idProducto, detalleventa.idVenta, venta.idCliente "
+        + "FROM detalleventa JOIN venta ON detalleventa.idVenta = venta.idCliente "
+        + "WHERE detalleventa.idProducto = ?";
+
+List <DetalleVenta> prodCli = new ArrayList<>();
+DetalleVenta dv =null;
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(SqlPr);
+        ps.setInt(1, idProducto);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()){
+        dv = new DetalleVenta();
+        Producto pp = pd.buscarProducto(rs.getInt("idProducto"));
+        dv.setProducto(pp);
+        dv.setCantidad(rs.getInt("cantidad"));
+        dv.setIdDetalleVent(rs.getInt("idDetalle"));
+        dv.setPrecioVenta(rs.getDouble("precio"));
+        Venta ve = vd.buscarVenta(rs.getInt ("idVenta"));
+        dv.setVenta(ve);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        }
+        
+            
+            
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+
+
+}
 
 }
      
