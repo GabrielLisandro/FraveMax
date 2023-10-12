@@ -146,7 +146,7 @@ public class DetalleVentaData {
 
 public List<DetalleVenta> productoXCliente (int idProducto){
 
-String SqlPr = "SELECT detalleventa.idProducto, detalleventa.idVenta, venta.idCliente "
+String SqlPr = "SELECT cantidad, idDetalle, precio, detalleventa.idProducto, detalleventa.idVenta, venta.idCliente "
         + "FROM detalleventa JOIN venta ON detalleventa.idVenta = venta.idCliente "
         + "WHERE detalleventa.idProducto = ?";
 
@@ -154,43 +154,36 @@ List <DetalleVenta> prodCli = new ArrayList<>();
 DetalleVenta dv =null;
 
         try {
+            
             PreparedStatement ps = connection.prepareStatement(SqlPr);
         ps.setInt(1, idProducto);
         ResultSet rs = ps.executeQuery();
         
         while (rs.next()){
+           
         dv = new DetalleVenta();
-        Producto pp = pd.buscarProducto(rs.getInt("idProducto"));
-        dv.setProducto(pp);
-        dv.setCantidad(rs.getInt("cantidad"));
+       
         dv.setIdDetalleVent(rs.getInt("idDetalle"));
-        dv.setPrecioVenta(rs.getDouble("precio"));
-        Venta ve = vd.buscarVenta(rs.getInt ("idVenta"));
+        dv.setCantidad(rs.getInt("cantidad"));
+    Venta ve = vd.buscarVenta(rs.getInt ("idVenta"));
         dv.setVenta(ve);
+        dv.setPrecioVenta(rs.getDouble("precio"));
+    Producto pp = pd.buscarProducto(rs.getInt("idProducto"));
+        dv.setProducto(pp);
         
-        
-        
-        
-        
-        
-        
-        
+        prodCli.add(dv);
         
         }
-        
-            
-            
-            
-            
+        ps.close();
             
         } catch (SQLException ex) {
-            Logger.getLogger(DetalleVentaData.class.getName()).log(Level.SEVERE, null, ex);
+         JOptionPane.showMessageDialog(null, "Error al conectarse con la Base de Datos"+ ex.getMessage());
         }
-
-
-
-
+        
+        return prodCli;
 }
+
+
 
 }
      
