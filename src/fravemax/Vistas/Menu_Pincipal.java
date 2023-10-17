@@ -60,7 +60,7 @@ public class Menu_Pincipal extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(255, 153, 0));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        jLabel1.setText("Bienvenido al paraizo de los electrodomesticos y regalos ");
+        jLabel1.setText("Bienvenido al paraiso de los electrodomesticos y regalos ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
