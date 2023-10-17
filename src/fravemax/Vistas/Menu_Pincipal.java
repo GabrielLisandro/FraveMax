@@ -4,9 +4,7 @@
  */
 package fravemax.Vistas;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+
 
 /**
  *
@@ -137,11 +135,16 @@ public class Menu_Pincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMclienteActionPerformed
-       
+        escritorio.removeAll();
+        escritorio.repaint();
+        ClienteVista bps = new ClienteVista();
+        bps.setVisible(true);
+        escritorio.add(bps);
+        escritorio.moveToFront(bps);       
     }//GEN-LAST:event_jMclienteActionPerformed
 
     private void escritorioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_escritorioAncestorAdded
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_escritorioAncestorAdded
 
     /**
