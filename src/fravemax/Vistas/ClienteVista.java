@@ -4,6 +4,7 @@
  */
 package fravemax.Vistas;
 
+import fravemax.AccesoADatos.ClienteData;
 import fravemax.Entidades.Cliente;
 import javax.swing.JOptionPane;
 
@@ -13,9 +14,9 @@ import javax.swing.JOptionPane;
  */
 public class ClienteVista extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ClienteVista
-     */
+        ClienteData clieData = new ClienteData();
+        
+    
     public ClienteVista() {
         initComponents();
     }
@@ -175,8 +176,7 @@ public class ClienteVista extends javax.swing.JInternalFrame {
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
         try {
-            int dni = Integer.parseInt(jTdni.getText());
-
+            String dni = jTdni.getText();
             String nombre = jTnombre.getText();
             String apellido = jTapellido.getText();
             String domicilio = jTdomicilio.getText();
@@ -184,54 +184,63 @@ public class ClienteVista extends javax.swing.JInternalFrame {
 
             Cliente cli = new Cliente();
             
-            if (jTdni.getText() != null) {
+            if (dni.isEmpty()) {
+//                String dniStr = String.valueOf(jTdni);
+                JOptionPane.showMessageDialog(null, "Debe completar el campo DNI");
 
-                String dniStr = String.valueOf(jTdni);
-
-                if (dniStr.matches("\\d{8}") || dniStr.matches("\\d{9}")) {
+            }else if (dni.matches("\\d{8}") || dni.matches("\\d{9}")) {
+                    int dni1 = Integer.parseInt(dni);  
                     System.out.println("El DNI es válido y no contiene letras.");
+                    cli.setDni(dni1);
+                   
                 } else {
                     System.out.println("El DNI no es válido o contiene letras.");
                 }
-            } else {
-
-                JOptionPane.showMessageDialog(null, "Debe completar el campo DNI");
-
-            }
-
+                   
             if (nombre.isEmpty()) {
-
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre");
+                }else{
+                    cli.setNombre(nombre);
 
             }
-
             if (apellido.isEmpty()) {
-
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Apellido");
+                }else{
+                    cli.setApellido(apellido);
 
             }
-
             if (domicilio.isEmpty()) {
-                 JOptionPane.showMessageDialog(null, "Debe completar el campo Domicilio");
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Domicilio");
+                }else{
+                    cli.setDomicilio(domicilio);
+
             }
-            
             if (telefono.isEmpty()) {
-                
-                 JOptionPane.showMessageDialog(null, "Debe completar el campo Telefono");
-                
-            }
-         {
-                
-            }
-        } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Telefono");
+                }else{
+                    cli.setTelefono(telefono);
 
-             JOptionPane.showMessageDialog(null, " Error al Ingresar el Cliente ");
+            }
+            clieData.agregarCliente(cli);
             
-        }
-
-
+            } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, " Error al Ingresar el Cliente ");
+            }
+        
+            limpiarCampos();
     }//GEN-LAST:event_jBguardarActionPerformed
 
+    
+    public void limpiarCampos(){
+    
+        jTdni.setText("");
+        jTnombre.setText("");
+        jTapellido.setText("");
+        jTdomicilio.setText("");
+        jTtelefono.setText("");
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBbuscar;

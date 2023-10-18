@@ -47,10 +47,10 @@ public class Menu_Pincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         escritorio.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 escritorioAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -92,8 +92,18 @@ public class Menu_Pincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Cliente");
         jMenu2.setFont(new java.awt.Font("Arial Black", 2, 48)); // NOI18N
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
 
         jMcliente.setText("Agregar Cliente");
+        jMcliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMclienteMouseClicked(evt);
+            }
+        });
         jMcliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMclienteActionPerformed(evt);
@@ -116,6 +126,16 @@ public class Menu_Pincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Salir");
         jMenu4.setFont(new java.awt.Font("Arial Black", 2, 48)); // NOI18N
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu4ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -146,6 +166,27 @@ public class Menu_Pincipal extends javax.swing.JFrame {
     private void escritorioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_escritorioAncestorAdded
        
     }//GEN-LAST:event_escritorioAncestorAdded
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+          
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMclienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMclienteMouseClicked
+        escritorio.removeAll();
+        escritorio.repaint();
+        ClienteVista bps = new ClienteVista();
+        bps.setVisible(true);
+        escritorio.add(bps);
+        escritorio.moveToFront(bps);
+    }//GEN-LAST:event_jMclienteMouseClicked
 
     /**
      * @param args the command line arguments

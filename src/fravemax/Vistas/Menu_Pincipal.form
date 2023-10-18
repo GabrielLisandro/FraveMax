@@ -51,12 +51,16 @@
               <Font name="Arial Black" size="48" style="2"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu2MouseClicked"/>
+          </Events>
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jMcliente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar Cliente"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMclienteMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMclienteActionPerformed"/>
               </Events>
             </Menu>
@@ -89,6 +93,10 @@
               <Font name="Arial Black" size="48" style="2"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu4MouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu4ActionPerformed"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>
