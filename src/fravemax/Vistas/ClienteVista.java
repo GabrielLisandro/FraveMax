@@ -234,8 +234,9 @@ public class ClienteVista extends javax.swing.JInternalFrame {
                     cli.setDni(dni1);
                    
                 } else {
-                    System.out.println("El DNI no es válido o contiene letras.");
-                }
+                    JOptionPane.showMessageDialog(null, "El DNI no es válido o contiene letras.");
+                return;
+            }
                    
             if (nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre");
