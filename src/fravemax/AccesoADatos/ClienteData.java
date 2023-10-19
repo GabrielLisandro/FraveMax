@@ -23,11 +23,22 @@ public class ClienteData {
     }
 
     public void agregarCliente(Cliente cliente) {
-
+    
+        String dniExistSql = "SELECT COUNT(*) FROM cliente WHERE dni = ?";
+    
+    try {
+        PreparedStatement dniExistentePs = connection.prepareStatement(dniExistSql);
+        dniExistentePs.setInt(1, cliente.getDni());
+        ResultSet dniExistRs = dniExistentePs.executeQuery();
+        
+         if (dniExistRs.next()&& dniExistRs.getInt(1)>0){
+            JOptionPane.showMessageDialog(null, "DNI ya existente, ingrese uno nuevamente");
+            return;
+            }
+         
         String agreClienteSql = "INSERT INTO cliente(apellido, nombre, domicilio, telefono, estado, DNI)"
                 + " VALUES (?,?,?,?,?,?)";
-
-        try {
+        
             PreparedStatement agreClientePs = connection.prepareStatement(agreClienteSql, Statement.RETURN_GENERATED_KEYS);
 
             agreClientePs.setString(1, cliente.getApellido());
@@ -36,9 +47,10 @@ public class ClienteData {
             agreClientePs.setString(4, cliente.getTelefono());
             agreClientePs.setBoolean(5, true);
             agreClientePs.setInt(6, cliente.getDni());
+            
             agreClientePs.executeUpdate();
             ResultSet rs = agreClientePs.getGeneratedKeys();
-
+            
             if (rs.next()) {
                 cliente.setIdCliente(rs.getInt(1));
 
@@ -87,14 +99,14 @@ public class ClienteData {
 
     }
 
-    public void eliminarCliente(int idCliente) {
+    public void eliminarCliente(int dni) {
 
-        String eliminarSql = "UPDATE cliente SET estado=0 WHERE idCliente =?";
+        String eliminarSql = "UPDATE cliente SET estado=0 WHERE dni =?";
 
         try {
             PreparedStatement eliminarPs = connection.prepareStatement(eliminarSql);
 
-            eliminarPs.setInt(1, idCliente);
+            eliminarPs.setInt(1, dni);
 
             int filas = eliminarPs.executeUpdate();
 
@@ -142,7 +154,7 @@ public class ClienteData {
     public Cliente buscarClienteDni(int dni) {
 
         String buscarClienteSql = "SELECT idCliente , apellido, nombre, domicilio, telefono, estado, DNI"
-                + " FROM cliente WHERE DNI = ? ";
+                + " FROM cliente WHERE DNI = ? AND estado = 1";
 
         Cliente cliente = null;
 

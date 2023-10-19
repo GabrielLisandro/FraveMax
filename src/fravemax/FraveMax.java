@@ -22,10 +22,10 @@ public class FraveMax {
 
     public static void main(String[] args) {
 
-//Cliente cliente = new Cliente(19,"Miño Juarez", "Maria Lucila Jacinta", "Falucho 1825" , "+540115784663", true, 11546457);
+Cliente cliente = new Cliente("Miño J", "M", "Falucho 1825" , "+540115784663", true, 11546457);
 ClienteData cd = new ClienteData();
 
-        // cd.agregarCliente(cliente);
+         cd.agregarCliente(cliente);
         
         // cd.modificarCliente(cliente);
         
@@ -109,11 +109,11 @@ DetalleVentaData dvd = new DetalleVentaData();
     //    JOptionPane.showMessageDialog(null , "Producto: " + producto.getNombreProducto()+ "Cantidad: " + dv.getCantidad()  );
 //   
 //}
-Venta ve = new Venta();
-    for (DetalleVenta listClie : dvd.productoXCliente(5)){
-        JOptionPane.showMessageDialog(null, listClie.toString());
+//Venta ve = new Venta();
+//    for (DetalleVenta listClie : dvd.productoXCliente(5)){
+//        JOptionPane.showMessageDialog(null, listClie.toString());
     
-    }
+//    }
       
         
     }

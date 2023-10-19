@@ -17,9 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class ClienteVista extends javax.swing.JInternalFrame {
 
-        ClienteData clieData = new ClienteData();
-        
-    
+    ClienteData clieData = new ClienteData();
+    Cliente buscClie = new Cliente();
+
     public ClienteVista() {
         initComponents();
     }
@@ -59,6 +59,11 @@ public class ClienteVista extends javax.swing.JInternalFrame {
         });
 
         jBbuscar.setText("Buscar");
+        jBbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBbuscarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nombre");
 
@@ -83,8 +88,18 @@ public class ClienteVista extends javax.swing.JInternalFrame {
         });
 
         jBmodificar.setText("Modificar");
+        jBmodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBmodificarActionPerformed(evt);
+            }
+        });
 
         jBeliminar.setText("Eliminar");
+        jBeliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBeliminarActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jTdni, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -143,9 +158,9 @@ public class ClienteVista extends javax.swing.JInternalFrame {
                 .addComponent(jBguardar)
                 .addGap(70, 70, 70)
                 .addComponent(jBmodificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(jBeliminar)
-                .addGap(17, 17, 17))
+                .addGap(19, 19, 19))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,14 +188,12 @@ public class ClienteVista extends javax.swing.JInternalFrame {
                     .addComponent(jTtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBguardar)
-                            .addComponent(jBsalir)
-                            .addComponent(jBmodificar))
-                        .addContainerGap())
-                    .addComponent(jBeliminar, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBguardar)
+                    .addComponent(jBsalir)
+                    .addComponent(jBmodificar)
+                    .addComponent(jBeliminar))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -203,10 +216,7 @@ public class ClienteVista extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
-
         dispose();
-
-
     }//GEN-LAST:event_jBsalirActionPerformed
 
     private void jTdniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTdniActionPerformed
@@ -223,65 +233,121 @@ public class ClienteVista extends javax.swing.JInternalFrame {
             String telefono = jTtelefono.getText();
 
             Cliente cli = new Cliente();
-            
+
             if (dni.isEmpty()) {
 //                String dniStr = String.valueOf(jTdni);
                 JOptionPane.showMessageDialog(null, "Debe completar el campo DNI");
 
-            }else if (dni.matches("\\d{8}") || dni.matches("\\d{9}")) {
-                    int dni1 = Integer.parseInt(dni);  
-                    System.out.println("El DNI es válido y no contiene letras.");
-                    cli.setDni(dni1);
-                   
-                } else {
-                    JOptionPane.showMessageDialog(null, "El DNI no es válido o contiene letras.");
+            } else if (dni.matches("\\d{8}") || dni.matches("\\d{9}")) {
+                int dni1 = Integer.parseInt(dni);
+                System.out.println("El DNI es válido y no contiene letras.");
+                cli.setDni(dni1);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "El DNI no es válido o contiene letras.");
                 return;
             }
-                   
+
             if (nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre");
-                }else{
-                    cli.setNombre(nombre);
+            } else {
+                cli.setNombre(nombre);
 
             }
             if (apellido.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Apellido");
-                }else{
-                    cli.setApellido(apellido);
+            } else {
+                cli.setApellido(apellido);
 
             }
             if (domicilio.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Domicilio");
-                }else{
-                    cli.setDomicilio(domicilio);
+            } else {
+                cli.setDomicilio(domicilio);
 
             }
             if (telefono.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Telefono");
-                }else{
-                    cli.setTelefono(telefono);
+            } else {
+                cli.setTelefono(telefono);
 
             }
             clieData.agregarCliente(cli);
-            
-            } catch (Exception e) {
-               JOptionPane.showMessageDialog(null, " Error al Ingresar el Cliente ");
-            }
-        
-            limpiarCampos();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, " Error al Ingresar el Cliente ");
+        }
+
+        limpiarCampos();
     }//GEN-LAST:event_jBguardarActionPerformed
 
-    
-    public void limpiarCampos(){
-    
+    private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
+
+        buscClie = clieData.buscarClienteDni(Integer.parseInt(jTdni.getText()));
+
+        if (buscClie != null) {
+
+            jTnombre.setText(buscClie.getNombre());
+            jTapellido.setText(buscClie.getApellido());
+            jTdomicilio.setText(buscClie.getDomicilio());
+            jTtelefono.setText(buscClie.getTelefono());
+        } else {
+            limpiarCampos();
+            buscClie = null;
+        }
+
+    }//GEN-LAST:event_jBbuscarActionPerformed
+
+    private void jBmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmodificarActionPerformed
+        
+        try {
+            int dni = Integer.parseInt(jTdni.getText());
+            String nombre = jTnombre.getText();
+            String apellido = jTapellido.getText();
+            String domicilio = jTdomicilio.getText();
+            String telefono = jTtelefono.getText();
+            
+            buscClie.setDni(dni);
+            buscClie.setNombre(nombre);
+            buscClie.setApellido(apellido);
+            buscClie.setDomicilio(domicilio);
+            buscClie.setTelefono(telefono);
+            
+            clieData.modificarCliente(buscClie);
+            
+            limpiarCampos();
+                    
+            buscClie = null;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error la modificacion no se pudo realizar");
+        }
+    }//GEN-LAST:event_jBmodificarActionPerformed
+
+    private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
+        try {
+            int dni = Integer.parseInt(jTdni.getText());
+            
+           if (jTdni.getText() != null){
+           clieData.eliminarCliente(dni);
+           
+           }
+           limpiarCampos();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el Cliente");
+        }
+    }//GEN-LAST:event_jBeliminarActionPerformed
+
+    public void limpiarCampos() {
+
         jTdni.setText("");
         jTnombre.setText("");
         jTapellido.setText("");
         jTdomicilio.setText("");
         jTtelefono.setText("");
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBbuscar;
