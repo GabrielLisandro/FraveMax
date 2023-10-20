@@ -31,12 +31,8 @@ public class Menu_Pincipal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jMproductos = new javax.swing.JMenuItem();
+        jMagregar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         Agregar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -49,9 +45,9 @@ public class Menu_Pincipal extends javax.swing.JFrame {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 escritorioAncestorAdded(evt);
             }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -69,28 +65,21 @@ public class Menu_Pincipal extends javax.swing.JFrame {
         jMenu1.setText("| Articulo | ");
         jMenu1.setFont(new java.awt.Font("Arial Black", 2, 18)); // NOI18N
 
-        jMenuItem1.setText("TV y AUDIO");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("PEQUEÑOS ELECTRODOMESTICOS");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("DEPORTES");
-        jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setText("TECNOLOGIA");
-        jMenu1.add(jMenuItem4);
-
-        jMenuItem5.setText("ELECTRODOMESTICOS");
-        jMenu1.add(jMenuItem5);
-
-        jMenuItem7.setText("OTROS");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+        jMproductos.setText("PRODUCTOS");
+        jMproductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMproductosMouseClicked(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        jMproductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMproductosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMproductos);
+
+        jMagregar.setText("AGREGAR PRODUCTO");
+        jMenu1.add(jMagregar);
 
         jMenuBar1.add(jMenu1);
 
@@ -157,10 +146,6 @@ public class Menu_Pincipal extends javax.swing.JFrame {
         escritorio.add(bps);
         escritorio.moveToFront(bps);    }//GEN-LAST:event_AgregarActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem8ActionPerformed
@@ -168,6 +153,26 @@ public class Menu_Pincipal extends javax.swing.JFrame {
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
     System.exit(0);
     }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMproductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMproductosActionPerformed
+     
+         escritorio.removeAll();
+        escritorio.repaint();
+        Productos_Vista bps = new Productos_Vista();
+        bps.setVisible(true);
+        escritorio.add(bps);
+        escritorio.moveToFront(bps);       
+        
+    }//GEN-LAST:event_jMproductosActionPerformed
+
+    private void jMproductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMproductosMouseClicked
+        escritorio.removeAll();
+        escritorio.repaint();
+        Productos_Vista bps = new Productos_Vista();
+        bps.setVisible(true);
+        escritorio.add(bps);
+        escritorio.moveToFront(bps);       
+    }//GEN-LAST:event_jMproductosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -207,17 +212,13 @@ public class Menu_Pincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Agregar;
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuItem jMagregar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMproductos;
     // End of variables declaration//GEN-END:variables
 }
