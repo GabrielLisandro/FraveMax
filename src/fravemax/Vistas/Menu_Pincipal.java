@@ -63,11 +63,11 @@ public class Menu_Pincipal extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 667, Short.MAX_VALUE)
+            .addGap(0, 709, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Articulo");
-        jMenu1.setFont(new java.awt.Font("Arial Black", 2, 48)); // NOI18N
+        jMenu1.setText("| Articulo | ");
+        jMenu1.setFont(new java.awt.Font("Arial Black", 2, 18)); // NOI18N
 
         jMenuItem1.setText("TV y AUDIO");
         jMenu1.add(jMenuItem1);
@@ -94,8 +94,8 @@ public class Menu_Pincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Cliente");
-        jMenu2.setFont(new java.awt.Font("Arial Black", 2, 48)); // NOI18N
+        jMenu2.setText("| Cliente |");
+        jMenu2.setFont(new java.awt.Font("Arial Black", 2, 18)); // NOI18N
 
         Agregar.setText("Agregar Cliente");
         Agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,8 +107,8 @@ public class Menu_Pincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Venta");
-        jMenu3.setFont(new java.awt.Font("Arial Black", 2, 48)); // NOI18N
+        jMenu3.setText("| Venta |");
+        jMenu3.setFont(new java.awt.Font("Arial Black", 2, 18)); // NOI18N
 
         jMenuItem8.setText("CARGAR VENTA ");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
@@ -120,8 +120,8 @@ public class Menu_Pincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("Salir");
-        jMenu4.setFont(new java.awt.Font("Arial Black", 2, 48)); // NOI18N
+        jMenu4.setText("| Salir |");
+        jMenu4.setFont(new java.awt.Font("Arial Black", 2, 18)); // NOI18N
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu4MouseClicked(evt);
