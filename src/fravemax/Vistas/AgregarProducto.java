@@ -1,11 +1,25 @@
 
 package fravemax.Vistas;
 
+import fravemax.AccesoADatos.ProductoData;
+import fravemax.Entidades.Producto;
+import javax.swing.JOptionPane;
+
 
 public class AgregarProducto extends javax.swing.JInternalFrame {
 
+    ProductoData prodat = new ProductoData();
+    
+            
+    
+    
+    
+    
+    
     public AgregarProducto() {
         initComponents();
+        
+        
         
         
     }
@@ -20,16 +34,12 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTProducto = new javax.swing.JTextField();
-        jTDescripcion = new javax.swing.JTextField();
-        jTPrecio = new javax.swing.JTextField();
-        jTStock = new javax.swing.JTextField();
-        jBBuscar = new javax.swing.JButton();
-        jBModificar = new javax.swing.JButton();
+        jTproducto = new javax.swing.JTextField();
+        jTdescripcion = new javax.swing.JTextField();
+        jTprecio = new javax.swing.JTextField();
+        jTstock = new javax.swing.JTextField();
         jBGuardar = new javax.swing.JButton();
-        jBEliminar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
-        jBLimpiar = new javax.swing.JButton();
 
         jLabel1.setText("PRODUCTO:");
 
@@ -42,42 +52,29 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("AGREGAR PRODUCTOS");
 
-        jTProducto.addActionListener(new java.awt.event.ActionListener() {
+        jTproducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTProductoActionPerformed(evt);
+                jTproductoActionPerformed(evt);
             }
         });
 
-        jTPrecio.addActionListener(new java.awt.event.ActionListener() {
+        jTprecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTPrecioActionPerformed(evt);
-            }
-        });
-
-        jBBuscar.setText("BUSCAR");
-
-        jBModificar.setText("MODIFICAR");
-        jBModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBModificarActionPerformed(evt);
+                jTprecioActionPerformed(evt);
             }
         });
 
         jBGuardar.setText("GUARDAR");
-
-        jBEliminar.setText("ELIMINAR");
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("SALIR");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBSalirActionPerformed(evt);
-            }
-        });
-
-        jBLimpiar.setText("LIMPIAR");
-        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLimpiarActionPerformed(evt);
             }
         });
 
@@ -90,37 +87,27 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBBuscar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBModificar)
-                                .addGap(58, 58, 58)
-                                .addComponent(jBGuardar)
-                                .addGap(60, 60, 60)
-                                .addComponent(jBEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBLimpiar))))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(173, 173, 173)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTStock, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                            .addComponent(jTPrecio)
-                            .addComponent(jTDescripcion)
-                            .addComponent(jTProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTstock, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                            .addComponent(jTprecio)
+                            .addComponent(jTdescripcion)
+                            .addComponent(jTproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(49, 49, 49)
-                                .addComponent(jLabel5)))
-                        .addGap(0, 80, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSalir)))
-                .addGap(29, 29, 29))
+                                .addComponent(jLabel5)))))
+                .addContainerGap(109, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBGuardar)
+                    .addComponent(jBSalir))
+                .addGap(37, 37, 37))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,29 +117,24 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBBuscar))
+                    .addComponent(jTproducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBModificar)
-                    .addComponent(jBGuardar)
-                    .addComponent(jBEliminar)
-                    .addComponent(jBLimpiar))
-                .addGap(23, 23, 23)
+                    .addComponent(jTstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jBGuardar)
+                .addGap(27, 27, 27)
                 .addComponent(jBSalir)
-                .addGap(17, 17, 17))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,36 +151,98 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProductoActionPerformed
+    private void jTproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTproductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTProductoActionPerformed
+    }//GEN-LAST:event_jTproductoActionPerformed
 
-    private void jTPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPrecioActionPerformed
+    private void jTprecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTprecioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTPrecioActionPerformed
-
-    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBModificarActionPerformed
+    }//GEN-LAST:event_jTprecioActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
-    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
-        jTProducto.setText("");
-        jTDescripcion.setText("");
-        jTPrecio.setText("");
-        jTStock.setText("");   
-    }//GEN-LAST:event_jBLimpiarActionPerformed
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+       
+        try {
+            
+       
+        String producto = jTproducto.getText();
+        String descrip = jTdescripcion.getText();
+        String precio = jTprecio.getText();
+        String stock = jTstock.getText();
+        
+        Producto prod = new Producto();
+        
+         if (producto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Producto");
+          return;
+         } else {
+               prod.setNombreProducto(producto);
+         }
+               
+        if (descrip.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Descripcion");
+         return;   
+        } else {
+               prod.setDescripcion(descrip);
+        }
+               
+        if (precio.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Precio");
+        return;   
+        } else if (precio.matches ("\\d+(\\.\\d+)?")) {
+        double pc = Double.parseDouble(precio);
+           
+             prod.setPrecioActual(pc);
+                    
+            }
+             
+        else {
+              JOptionPane.showMessageDialog(null, "En el campo Precio debe ingresar solo numeros");
+              return; 
+        }
+        
+         if (stock.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Stock");
+         return;   
+         }
+         else if (stock.matches("\\d+")) {
+                 int st = Integer.parseInt(stock);
+                prod.setStock(st);
+            
+         }
+         
+         else {
+              
+                JOptionPane.showMessageDialog(null, "En el campo Stock debe ingresar solo numeros");
+        return;
+         }
+        
+        prodat.agregarProducto(prod);
+        
+         } catch (Exception e) {
+                  JOptionPane.showMessageDialog(null, "Error al ingresar el producto");
+         
+         }
+        
+        
+        limpiarCampos();
+        
+    }//GEN-LAST:event_jBGuardarActionPerformed
 
+    public void limpiarCampos() {
+        
+        jTproducto.setText("");
+        jTdescripcion.setText("");
+        jTprecio.setText("");
+        jTstock.setText("");
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBBuscar;
-    private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBGuardar;
-    private javax.swing.JButton jBLimpiar;
-    private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -206,9 +250,9 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTDescripcion;
-    private javax.swing.JTextField jTPrecio;
-    private javax.swing.JTextField jTProducto;
-    private javax.swing.JTextField jTStock;
+    private javax.swing.JTextField jTdescripcion;
+    private javax.swing.JTextField jTprecio;
+    private javax.swing.JTextField jTproducto;
+    private javax.swing.JTextField jTstock;
     // End of variables declaration//GEN-END:variables
 }
