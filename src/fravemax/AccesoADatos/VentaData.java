@@ -215,7 +215,6 @@ public class VentaData {
 
                 listaClient.add(venta);
             }
-
             ps.close();
 
         } catch (SQLException ex) {

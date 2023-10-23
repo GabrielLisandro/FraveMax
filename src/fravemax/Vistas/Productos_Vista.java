@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package fravemax.Vistas;
 
 import fravemax.AccesoADatos.ProductoData;
@@ -132,9 +129,9 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
         borrarFilasTabla();
-         jBbuscar.setSelected(true);
-         CargaProductos();
-       jBbuscar.setEnabled(true);   
+        jBbuscar.setSelected(true);
+        CargaProductos();
+        jBbuscar.setEnabled(true);   
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBbuscarMouseClicked
@@ -162,7 +159,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
     private void CargaProductos(){        
            // Obtener el nombre del producto seleccionado en el JComboBox
     String nombreProductoSeleccionado = (String) jCproductos.getSelectedItem();
-    // Borrar las filas existentes en la tabla
+    
     borrarFilasTabla();
     // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
     for (Producto producto : listaP) {
@@ -171,15 +168,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
         }
     }
 }
-//Con estos cambios, la tabla debería cargarse correctamente con los productos correspondientes cuando hagas clic en el botón "Buscar". Asegúrate de que los nombres de los productos en el JComboBox coincidan exactamente con los nombres en tu lista de productos. 
-//    Producto selec = (Producto) jCproductos.getSelectedItem();
-//    listaP = (ArrayList<Producto>) pData.ListarProducto();
-//        for (Producto producto : listaP) {
-//            modelo.addRow(new Object[]{producto.getDescripcion(),producto.getPrecioActual(),producto.getStock()});
-//        }
-//        
-//        
-//    }    
+   
     private void borrarFilasTabla() {
         int indice = modelo.getRowCount() -1;   
         for (int i = indice; i>=0; i--){
