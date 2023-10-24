@@ -4,18 +4,20 @@ package fravemax.Vistas;
 import fravemax.AccesoADatos.ProductoData;
 import fravemax.Entidades.Producto;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Productos_Vista extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
-            return false;
+            return true;
         }
     };
 
     private ArrayList<Producto> listaP;
     ProductoData pData = new ProductoData();
+    Producto prod = new Producto();
        
     public Productos_Vista() {
         initComponents();
@@ -90,6 +92,11 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
         });
 
         jBguarCam.setText("GUARDAR CAMBIOS");
+        jBguarCam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBguarCamActionPerformed(evt);
+            }
+        });
 
         jBeliminar.setText("ELIMINAR");
         jBeliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +183,69 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBeliminarActionPerformed
 
+    private void jBguarCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguarCamActionPerformed
+        
+        int fila = jTtabla.getSelectedRow();
+            if (fila != -1) {
+ 
+                int i = jTtabla.getSelectedRow();
+                String producto = jTtabla.getModel().getValueAt(i, 0).toString();
+                String descrip = jTtabla.getModel().getValueAt(i, 1).toString();
+                String precio = jTtabla.getModel().getValueAt(i, 2).toString();
+                String stock = jTtabla.getModel().getValueAt(i, 3).toString();
+         
+                if (producto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Producto");
+          return;
+         } else {
+               prod.setNombreProducto(producto);
+         }
+               
+        if (descrip.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Descripcion");
+         return;   
+        } else {
+               prod.setDescripcion(descrip);
+        }
+               
+        if (precio.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Precio");
+        return;   
+        } else if (precio.matches ("\\d+(\\.\\d+)?")) {
+        double pc = Double.parseDouble(precio);
+           
+             prod.setPrecioActual(pc);
+                    
+            }
+             
+        else {
+              JOptionPane.showMessageDialog(null, "En el campo Precio debe ingresar solo numeros");
+              return; 
+        }
+        
+         if (stock.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Stock");
+         return;   
+         }
+         else if (stock.matches("\\d+")) {
+                 int st = Integer.parseInt(stock);
+                prod.setStock(st);
+            
+         }else {
+              
+                JOptionPane.showMessageDialog(null, "En el campo Stock debe ingresar solo numeros");
+        return;
+         }
+        
+         pData.modificarProducto(prod);
+        
+            }else{
+            JOptionPane.showMessageDialog(null, "Error al modificar el Producto");
+            }
+        borrarFilasTabla();
+    }//GEN-LAST:event_jBguarCamActionPerformed
+
+    
     private void cargarBox() {
         for (Producto producto : listaP) {
             jCproductos.addItem(producto.getNombreProducto());
@@ -183,6 +253,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
     }
 
     private void armarCabecera() {
+        modelo.addColumn("PRODUCTO");
         modelo.addColumn("DESCRIPCION");
         modelo.addColumn("PRECIO");
         modelo.addColumn("STOCK");
@@ -198,7 +269,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
     // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
     for (Producto producto : listaP) {
         if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
-            modelo.addRow(new Object[]{producto.getDescripcion(), producto.getPrecioActual(), producto.getStock()});
+            modelo.addRow(new Object[]{producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioActual(), producto.getStock()});
         }
     }
 }
