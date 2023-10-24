@@ -22,10 +22,10 @@ public class FraveMax {
 
     public static void main(String[] args) {
 
-Cliente cliente = new Cliente("Miño J", "M", "Falucho 1825" , "+540115784663", true, 11546457);
+//Cliente cliente = new Cliente("Miño J", "M", "Falucho 1825" , "+540115784663", true, 11546457);
 ClienteData cd = new ClienteData();
 
-         cd.agregarCliente(cliente);
+        // cd.agregarCliente(cliente);
         
         // cd.modificarCliente(cliente);
         
@@ -43,7 +43,7 @@ ClienteData cd = new ClienteData();
         // enco= cd.buscarClienteDni(11546457);
         // JOptionPane.showMessageDialog(null, enco.toString()+ " "+ enco.isEstado());
       
-//Producto producto = new Producto(1, " SMART LED ANDROID TV PHILIPS 32 PULGADAS HD 32PHD6917/77", "Televisor Smart / Android. Pantalla: TV LED HD. Resolucion de panel: 1366 x 768 p.", 117000.00, 6, true);
+// Producto producto = new Producto(1, " SMART LED ANDROID TV PHILIPS 32 PULGADAS HD 32PHD6917/77", "Televisor Smart / Android. Pantalla: TV LED HD. Resolucion de panel: 1366 x 768 p.", 117000.00, 6, true);
 ProductoData pd = new ProductoData();
 
         // pd.agregarProducto(producto);
@@ -54,7 +54,11 @@ ProductoData pd = new ProductoData();
         
         //for (Producto pr: pd.ListarProducto()) {
             //JOptionPane.showMessageDialog(null, pr.toString());
-//        }
+        //}
+
+        // pd.buscarProducto(5);
+        
+        //pd.buscarProducto(nombre);
 
 
 //Cliente jopse = cd.buscarCliente(9);

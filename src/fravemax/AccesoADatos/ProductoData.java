@@ -1,4 +1,3 @@
-
 package fravemax.AccesoADatos;
 
 import fravemax.Entidades.Cliente;
@@ -14,33 +13,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 public class ProductoData {
-    
-     private Connection connection = null;
+
+    private Connection connection = null;
 
     public ProductoData() {
 
         connection = conexion.getConexion();
-    
-    
-    }   
 
-public void agregarProducto(Producto producto){
-    
-    String sql = "INSERT INTO `producto`( `nombre`, `descripcion`, `precio`, `stock`, `estado`)"
-            + " VALUES (?,?,?,?,?)" ; 
-    
-         try {
-             PreparedStatement ps = connection.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS);
-         
-             ps.setString(1, producto.getNombreProducto());
-             ps.setString(2, producto.getDescripcion());
-             ps.setDouble(3, producto.getPrecioActual());
-             ps.setInt(4, producto.getStock());
-             ps.setBoolean(5, true);
-             
-             ps.executeUpdate();
+    }
+
+    public void agregarProducto(Producto producto) {
+
+        String sql = "INSERT INTO `producto`( `nombre`, `descripcion`, `precio`, `stock`, `estado`)"
+                + " VALUES (?,?,?,?,?)";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, producto.getNombreProducto());
+            ps.setString(2, producto.getDescripcion());
+            ps.setDouble(3, producto.getPrecioActual());
+            ps.setInt(4, producto.getStock());
+            ps.setBoolean(5, true);
+
+            ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
             if (rs.next()) {
@@ -50,90 +47,62 @@ public void agregarProducto(Producto producto){
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo agregar el Producto");
-
             }
+            ps.close();
 
-         ps.close();
-         
-         } 
-         
-         
-         catch (SQLException ex) {
-             
-          JOptionPane.showMessageDialog(null, "Error de conexion a la base de datos");
-         }
-    
-    
-}
-        
-
-public void borrarProducto(int idProducto){
-    
- String borrarProdsql = " UPDATE `producto` SET `estado`= 0 WHERE idProducto = ?";
-    
-         try {
-             PreparedStatement borrarProdps = connection.prepareStatement(borrarProdsql);
-         
-             borrarProdps.setInt(1, idProducto);
-             
-             int filas = borrarProdps.executeUpdate();
-             
-             if (filas == 1) {
-                 
-                 JOptionPane.showMessageDialog(null, "El producto fue dado de baja");
-                 
-             }else{
-                 
-                 JOptionPane.showMessageDialog(null, "No se pudo dar de baja el producto");
-                 
-             }
-             
-         
-         
-         }
-                  
-         
-         catch (SQLException ex) {
-             
-              JOptionPane.showMessageDialog(null, "Error de conexion a la base de datos");
-         }
-    
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de conexion a la base de datos");
+        }
 }
 
+    public void borrarProducto(int idProducto) {
 
-public void modificarProducto(Producto producto){
-    
-    String modProdSql = "UPDATE `producto` SET `nombre`= ?,`descripcion`=?,`precio`= ?,`stock` = ? WHERE idProducto = ? ";
-    
-    try {
-        PreparedStatement modProdPs = connection.prepareStatement(modProdSql);
-        
-        modProdPs.setString(1, producto.getNombreProducto());
-        modProdPs.setString(2, producto.getDescripcion());
-        modProdPs.setDouble(3, producto.getPrecioActual());
-        modProdPs.setInt(4, producto.getStock());
-        modProdPs.setInt(5, producto.getIdProducto());
-        
-        
-        int filas = modProdPs.executeUpdate();
-         if (filas == 1) {
-            
-              JOptionPane.showMessageDialog(null, "El producto a sido actualizado");
-             
-             
-        }else{
-             
-              JOptionPane.showMessageDialog(null, " NO se pudo actualizar el Producto");
-         }
-        
-        
-    } catch (SQLException e) {
-           JOptionPane.showMessageDialog(null, "Error de conexion a la base de datos");
-        
+        String borrarProdsql = " UPDATE `producto` SET `estado`= 0 WHERE idProducto = ?";
+
+        try {
+            PreparedStatement borrarProdps = connection.prepareStatement(borrarProdsql);
+
+            borrarProdps.setInt(1, idProducto);
+
+            int filas = borrarProdps.executeUpdate();
+
+            if (filas == 1) {
+                JOptionPane.showMessageDialog(null, "El producto fue dado de baja");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo dar de baja el producto");
+            }
+        } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error de conexion a la base de datos");
+        }
     }
-}
 
-    public List<Producto> ListarProducto(){
+    public void modificarProducto(Producto producto) {
+
+        String modProdSql = "UPDATE `producto` SET `nombre`= ?,`descripcion`=?,`precio`= ?,`stock` = ? WHERE idProducto = ? ";
+
+        try {
+            PreparedStatement modProdPs = connection.prepareStatement(modProdSql);
+
+            modProdPs.setString(1, producto.getNombreProducto());
+            modProdPs.setString(2, producto.getDescripcion());
+            modProdPs.setDouble(3, producto.getPrecioActual());
+            modProdPs.setInt(4, producto.getStock());
+            modProdPs.setInt(5, producto.getIdProducto());
+
+            int filas = modProdPs.executeUpdate();
+            if (filas == 1) {
+                JOptionPane.showMessageDialog(null, "El producto a sido actualizado");
+
+            } else {
+                JOptionPane.showMessageDialog(null, " NO se pudo actualizar el Producto");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error de conexion a la base de datos");
+        }
+    }
+
+    public List<Producto> ListarProducto() {
 
         String listprosql = "select * from producto where estado = 1";
 
@@ -151,8 +120,7 @@ public void modificarProducto(Producto producto){
                 produ.setPrecioActual(set.getDouble("precio"));
                 produ.setStock(set.getInt("stock"));
                 produ.setEstado(set.getBoolean("estado"));
-                
-                
+
                 prod.add(produ);
             }
             ps.close();
@@ -162,31 +130,32 @@ public void modificarProducto(Producto producto){
         }
         return prod;
     }
-    
-    
-  public Producto buscarProducto(int id){
-  
-      String buscarProdSql = "SELECT nombre, descripcion, precio, stock, estado"
+
+    public Producto buscarProducto(int id) {
+
+        String buscarProdSql = "SELECT nombre, descripcion, precio, stock, estado"
                 + " FROM producto WHERE idProducto = ? ";
-        
-  Producto producto = null;
-        
+
+        Producto producto = null;
+
         try {
             PreparedStatement buscarProdPs = connection.prepareStatement(buscarProdSql);
             buscarProdPs.setInt(1, id);
             ResultSet rs = buscarProdPs.executeQuery();
 
             if (rs.next()) {
-                
+
                 producto = new Producto();
-                
+
                 producto.setIdProducto(id);
                 producto.setNombreProducto(rs.getString("nombre"));
                 producto.setDescripcion(rs.getString("descripcion"));
                 producto.setPrecioActual(rs.getDouble("precio"));
                 producto.setStock(rs.getInt("stock"));
                 producto.setEstado(true);
-                
+
+               JOptionPane.showMessageDialog(null, producto);
+               
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontro el Producto");
             }
@@ -197,18 +166,40 @@ public void modificarProducto(Producto producto){
         }
         return producto;
     }
-  
 
-  
-  }  
+    public Producto buscarProducto(String nombre) {
 
-        
+        String buscarProdSql = "SELECT nombre, descripcion, precio, stock, estado"
+                + " FROM producto WHERE nombre = ? ";
 
+        Producto producto = null;
 
+        try {
+            PreparedStatement buscarProdPs = connection.prepareStatement(buscarProdSql);
+            buscarProdPs.setString(1, nombre);
+            ResultSet rs = buscarProdPs.executeQuery();
 
+            if (rs.next()) {
 
+                producto = new Producto();
 
+                producto.setNombreProducto(rs.getString("nombre"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setPrecioActual(rs.getDouble("precio"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setEstado(true);
+                
+                JOptionPane.showMessageDialog(null, producto);
 
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro el Producto");
+            }
+            buscarProdPs.close();
 
-
-
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la busqueda del Producto ");
+        }
+        return producto;
+    }
+    
+}
