@@ -183,7 +183,18 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBsalirActionPerformed
 
     private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
-        // TODO add your handling code here:
+        try {
+            int fila = jTtabla.getSelectedRow();
+            if (fila != -1) {
+                int i = jTtabla.getSelectedRow();
+                int idPro = Integer.parseInt(jTtabla.getModel().getValueAt(i, 0).toString());
+                pData.borrarProducto(idPro);
+                System.out.println("se elimino bro");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el Producto deseado");
+        }
+        cargarBox();
     }//GEN-LAST:event_jBeliminarActionPerformed
 
     private void jBguarCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguarCamActionPerformed
@@ -243,6 +254,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al modificar el Producto");
         }
         borrarFilasTabla();
+        cargarBox();
     }//GEN-LAST:event_jBguarCamActionPerformed
 
     private void cargarBox() {
