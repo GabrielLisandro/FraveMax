@@ -1,4 +1,3 @@
-
 package fravemax.Vistas;
 
 import fravemax.AccesoADatos.ProductoData;
@@ -11,21 +10,25 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
-            return true;
+            if (Columna >= 1 && Columna <= 4) {
+                return true;
+            }
+            return false;
         }
     };
 
     private ArrayList<Producto> listaP;
     ProductoData pData = new ProductoData();
     Producto prod = new Producto();
-       
+
     public Productos_Vista() {
         initComponents();
         listaP = (ArrayList<Producto>) pData.ListarProducto();
-        
+
         cargarBox();
         armarCabecera();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -168,7 +171,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
         borrarFilasTabla();
         jBbuscar.setSelected(true);
         CargaProductos();
-        jBbuscar.setEnabled(true);   
+        jBbuscar.setEnabled(true);
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBbuscarMouseClicked
@@ -184,68 +187,64 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBeliminarActionPerformed
 
     private void jBguarCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguarCamActionPerformed
-        
+
         int fila = jTtabla.getSelectedRow();
-            if (fila != -1) {
- 
-                int i = jTtabla.getSelectedRow();
-                String producto = jTtabla.getModel().getValueAt(i, 0).toString();
-                String descrip = jTtabla.getModel().getValueAt(i, 1).toString();
-                String precio = jTtabla.getModel().getValueAt(i, 2).toString();
-                String stock = jTtabla.getModel().getValueAt(i, 3).toString();
-         
-                if (producto.isEmpty()) {
+        if (fila != -1) {
+
+            int i = jTtabla.getSelectedRow();
+            int idProducto = Integer.parseInt(jTtabla.getModel().getValueAt(i, 0).toString());
+            String producto = jTtabla.getModel().getValueAt(i, 1).toString();
+            String descrip = jTtabla.getModel().getValueAt(i, 2).toString();
+            String precio = jTtabla.getModel().getValueAt(i, 3).toString();
+            String stock = jTtabla.getModel().getValueAt(i, 4).toString();
+
+            if (producto.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Producto");
-          return;
-         } else {
-               prod.setNombreProducto(producto);
-         }
-               
-        if (descrip.isEmpty()) {
+                return;
+            } else {
+                prod.setNombreProducto(producto);
+            }
+
+            if (descrip.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Descripcion");
-         return;   
-        } else {
-               prod.setDescripcion(descrip);
-        }
-               
-        if (precio.isEmpty()) {
+                return;
+            } else {
+                prod.setDescripcion(descrip);
+            }
+
+            if (precio.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Precio");
-        return;   
-        } else if (precio.matches ("\\d+(\\.\\d+)?")) {
-        double pc = Double.parseDouble(precio);
-           
-             prod.setPrecioActual(pc);
-                    
+                return;
+            } else if (precio.matches("\\d+(\\.\\d+)?")) {
+                double pc = Double.parseDouble(precio);
+
+                prod.setPrecioActual(pc);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "En el campo Precio debe ingresar solo numeros");
+                return;
             }
-             
-        else {
-              JOptionPane.showMessageDialog(null, "En el campo Precio debe ingresar solo numeros");
-              return; 
-        }
-        
-         if (stock.isEmpty()) {
+
+            if (stock.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Stock");
-         return;   
-         }
-         else if (stock.matches("\\d+")) {
-                 int st = Integer.parseInt(stock);
+                return;
+            } else if (stock.matches("\\d+")) {
+                int st = Integer.parseInt(stock);
                 prod.setStock(st);
-            
-         }else {
-              
+
+            } else {
+
                 JOptionPane.showMessageDialog(null, "En el campo Stock debe ingresar solo numeros");
-        return;
-         }
-        
-         pData.modificarProducto(prod);
-        
-            }else{
-            JOptionPane.showMessageDialog(null, "Error al modificar el Producto");
+                return;
             }
+
+            pData.modificarProductos(producto, descrip, prod.getPrecioActual(), prod.getStock(), idProducto);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al modificar el Producto");
+        }
         borrarFilasTabla();
     }//GEN-LAST:event_jBguarCamActionPerformed
 
-    
     private void cargarBox() {
         for (Producto producto : listaP) {
             jCproductos.addItem(producto.getNombreProducto());
@@ -253,6 +252,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
     }
 
     private void armarCabecera() {
+        modelo.addColumn("ID");
         modelo.addColumn("PRODUCTO");
         modelo.addColumn("DESCRIPCION");
         modelo.addColumn("PRECIO");
@@ -260,26 +260,26 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
         jTtabla.setModel(modelo);
     }
 
-    
-    private void CargaProductos(){        
-           // Obtener el nombre del producto seleccionado en el JComboBox
-    String nombreProductoSeleccionado = (String) jCproductos.getSelectedItem();
-    
-    borrarFilasTabla();
-    // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
-    for (Producto producto : listaP) {
-        if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
-            modelo.addRow(new Object[]{producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioActual(), producto.getStock()});
+    private void CargaProductos() {
+        // Obtener el nombre del producto seleccionado en el JComboBox
+        String nombreProductoSeleccionado = (String) jCproductos.getSelectedItem();
+
+        borrarFilasTabla();
+        // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
+        for (Producto producto : listaP) {
+            if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
+                modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombreProducto(),
+                    producto.getDescripcion(), producto.getPrecioActual(), producto.getStock()});
+            }
         }
     }
-}
-   
+
     private void borrarFilasTabla() {
-        int indice = modelo.getRowCount() -1;   
-        for (int i = indice; i>=0; i--){
-             modelo.removeRow(i);
-        }   
-     }
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBeliminar;

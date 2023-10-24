@@ -101,6 +101,30 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, "Error de conexion a la base de datos");
         }
     }
+    public void modificarProductos(String nombreProducto, String descripcion, double precioActual, int stock, int idProducto) {
+
+        String modProdSql = "UPDATE `producto` SET `nombre`= ?,`descripcion`=?,`precio`= ?,`stock` = ? WHERE idProducto = ? ";
+
+        try {
+            PreparedStatement modProdPs = connection.prepareStatement(modProdSql);
+
+            modProdPs.setString(1, nombreProducto);
+            modProdPs.setString(2, descripcion);
+            modProdPs.setDouble(3, precioActual);
+            modProdPs.setInt(4, stock);
+            modProdPs.setInt(5, idProducto);
+
+            int filas = modProdPs.executeUpdate();
+            if (filas == 1) {
+                JOptionPane.showMessageDialog(null, "El producto a sido actualizado");
+
+            } else {
+                JOptionPane.showMessageDialog(null, " NO se pudo actualizar el Producto");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error de conexion a la base de datos");
+        }
+    }
 
     public List<Producto> ListarProducto() {
 
