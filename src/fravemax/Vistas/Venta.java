@@ -266,7 +266,8 @@ public class Venta extends javax.swing.JInternalFrame {
         Cliente clie = new Cliente();
 
         if (buscClie != null) {
-            jTcliente.setText(buscClie.getApellido());
+            String nombre = buscClie.getApellido() +" "+ buscClie.getNombre();
+            jTcliente.setText(nombre);
            
         } else {
             buscClie = null;
