@@ -183,6 +183,8 @@ public class ClienteData {
         }
         return cliente;
     }
+    
+    
     public Cliente buscarCliente(int id) {
 
         String buscarClienteSql = "SELECT idCliente , apellido, nombre, domicilio, telefono, estado, DNI"
