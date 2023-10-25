@@ -24,7 +24,11 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
-            return false;
+            if (Columna==2) {
+                return true;
+            }else {
+                return false;
+            }
         }
     };
 
@@ -64,7 +68,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
         jTcliente = new javax.swing.JTextField();
         jCproducto = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBeliminar = new javax.swing.JButton();
 
         jTFecha.setEditable(false);
         jTFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +100,15 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTtablaVenta.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTtablaVentaAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane1.setViewportView(jTtablaVenta);
 
         jBagregar.setText("AGREGAR");
@@ -150,7 +163,12 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
 
         jButton1.setText("GUARDAR");
 
-        jButton2.setText("ELIMINAR ");
+        jBeliminar.setText("ELIMINAR ");
+        jBeliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBeliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -169,7 +187,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jBlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(54, 54, 54)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBeliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(54, 54, 54)
@@ -240,7 +258,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
                     .addComponent(jBSalir)
                     .addComponent(jBlimpiar)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jBeliminar))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -301,6 +319,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
         
         
         
+        
     }//GEN-LAST:event_jBagregarActionPerformed
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
@@ -336,6 +355,17 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_jCproductoActionPerformed
+
+    private void jTtablaVentaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTtablaVentaAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTtablaVentaAncestorAdded
+
+    private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
+       
+        borrarFilaSelec();
+        
+        
+    }//GEN-LAST:event_jBeliminarActionPerformed
 
     
     public static String fechaActual(){
@@ -390,8 +420,18 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
         }
     }
     
-    
-    
+    private void borrarFilaSelec(){
+        
+          int fila = jTtablaVenta.getSelectedRow();
+            if (fila != -1) {
+                int i = jTtablaVenta.getSelectedRow();
+                modelo.removeRow(i);
+                
+        
+        
+    }
+       
+   } 
     
     
     
@@ -399,9 +439,9 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jBagregar;
     private javax.swing.JButton jBbuscar;
+    private javax.swing.JButton jBeliminar;
     private javax.swing.JButton jBlimpiar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCproducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -55,7 +55,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="jBlimpiar" min="-2" pref="82" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                                  <Component id="jButton2" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Component id="jBeliminar" min="-2" pref="99" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jButton1" min="-2" pref="101" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
@@ -148,7 +148,7 @@
                       <Component id="jBSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBlimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBeliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
@@ -202,6 +202,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jTtablaVentaAncestorAdded"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -286,10 +289,13 @@
             <Property name="text" type="java.lang.String" value="GUARDAR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="jBeliminar">
           <Properties>
             <Property name="text" type="java.lang.String" value="ELIMINAR "/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBeliminarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
