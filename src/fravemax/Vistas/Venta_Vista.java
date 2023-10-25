@@ -1,28 +1,40 @@
 package fravemax.Vistas;
 
 import fravemax.AccesoADatos.ClienteData;
+import fravemax.AccesoADatos.ProductoData;
 import fravemax.Entidades.Cliente;
+import fravemax.Entidades.Producto;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 
-public class Venta extends javax.swing.JInternalFrame {
+public class Venta_Vista extends javax.swing.JInternalFrame {
     
     ClienteData clieData = new ClienteData();
     Cliente buscClie = new Cliente();
     Date fecha = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
    
+    private ArrayList<Producto> listaP;
+    ProductoData pData = new ProductoData();
+    
+    
+    
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
             return false;
         }
     };
 
-    public Venta() {
+    public Venta_Vista() {
         initComponents();
 
+        listaP = (ArrayList<Producto>) pData.ListarProducto();
+        cargarBox();
+        
+        
         armarCabecera();
         
         jTFecha.setText(sdf.format(fecha)); 
@@ -37,7 +49,6 @@ public class Venta extends javax.swing.JInternalFrame {
         jTFecha = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTDni = new javax.swing.JTextField();
-        jTProducto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -51,6 +62,9 @@ public class Venta extends javax.swing.JInternalFrame {
         jBSalir = new javax.swing.JButton();
         jBlimpiar = new javax.swing.JButton();
         jTcliente = new javax.swing.JTextField();
+        jCproducto = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jTFecha.setEditable(false);
         jTFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +142,16 @@ public class Venta extends javax.swing.JInternalFrame {
 
         jTcliente.setEditable(false);
 
+        jCproducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCproductoActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("GUARDAR");
+
+        jButton2.setText("ELIMINAR ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -143,9 +167,13 @@ public class Venta extends javax.swing.JInternalFrame {
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBlimpiar)
+                                .addComponent(jBlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBSalir))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -162,19 +190,21 @@ public class Venta extends javax.swing.JInternalFrame {
                                                 .addGap(0, 3, Short.MAX_VALUE))
                                             .addComponent(jTcliente)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTProducto))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(jCproducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jTFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jBagregar, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jBagregar)
+                                        .addGap(21, 21, 21)))))))
                 .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
@@ -196,9 +226,9 @@ public class Venta extends javax.swing.JInternalFrame {
                     .addComponent(jTcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBagregar)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jCproducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -208,7 +238,9 @@ public class Venta extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalir)
-                    .addComponent(jBlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBlimpiar)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -242,9 +274,9 @@ public class Venta extends javax.swing.JInternalFrame {
     private void jBlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlimpiarActionPerformed
         try {
             String dni = jTDni.getText();
-            String produ = jTProducto.getText();
+           
 
-            if (dni.isEmpty() && produ.isEmpty()) {
+            if (dni.isEmpty())  {
                 JOptionPane.showMessageDialog(null, "Los Campos ya estan Limpios");
             } else {
                 limpiarCampos();
@@ -257,7 +289,18 @@ public class Venta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBlimpiarActionPerformed
 
     private void jBagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBagregarActionPerformed
-       
+
+        jBbuscar.setSelected(true);
+        CargaProductos();
+        jBbuscar.setEnabled(true);
+        
+        
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_jBagregarActionPerformed
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
@@ -286,6 +329,14 @@ public class Venta extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jCproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCproductoActionPerformed
+       
+        
+        
+        
+        
+    }//GEN-LAST:event_jCproductoActionPerformed
+
     
     public static String fechaActual(){
         Date fecha = new Date(); 
@@ -305,14 +356,43 @@ public class Venta extends javax.swing.JInternalFrame {
         modelo.addColumn("PRODUCTO");
         modelo.addColumn("PRECIO");
         modelo.addColumn("CANTIDAD");
+        modelo.addColumn("PRECIO TOTAL");
         jTtablaVenta.setModel(modelo);
     }
 
     private void limpiarCampos() {
-        jTDni.setText("");
-        jTProducto.setText("");
+        jTDni.setText("");        
         jTcliente.setText("");
     }
+    
+    private void cargarBox(){
+        
+         for (Producto producto : listaP) {
+            jCproducto.addItem(producto.getNombreProducto());
+        
+    }
+     
+         
+    }
+    
+    private void CargaProductos() {
+        // Obtener el nombre del producto seleccionado en el JComboBox
+        String nombreProductoSeleccionado = (String) jCproducto.getSelectedItem();
+
+       
+        // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
+        for (Producto producto : listaP) {
+            if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
+                modelo.addRow(new Object[]{ producto.getNombreProducto(), producto.getPrecioActual()});
+                
+                
+            }
+        }
+    }
+    
+    
+    
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -320,6 +400,9 @@ public class Venta extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBagregar;
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBlimpiar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jCproducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -330,7 +413,6 @@ public class Venta extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTDni;
     private javax.swing.JTextField jTFecha;
-    private javax.swing.JTextField jTProducto;
     private javax.swing.JTextField jTcliente;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTable jTtablaVenta;

@@ -158,7 +158,7 @@ public class Menu_Pincipal extends javax.swing.JFrame {
     private void jMCargarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCargarVentaActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        Venta ded = new Venta();
+        Venta_Vista ded = new Venta_Vista();
         ded.setVisible(true);
         escritorio.add(ded);
         escritorio.moveToFront(ded);
