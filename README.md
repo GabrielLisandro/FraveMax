@@ -77,3 +77,22 @@ System.out.println("2");
             }
             limpiarCampos();
     }                                
+desde aca es detalleventadata
+ public void sumaPrecios(int id) {
+        try {
+            String prec = "SELECT SUM(cantidad * precio) AS precioTotal FROM detalleventa";
+
+            PreparedStatement ps = connection.prepareStatement(prec);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                double precioTotal = rs.getDouble("precioTotal");
+                System.out.println("Precio total para ID " + id + ": " + precioTotal);
+            }
+            connection.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectarse con la Base de Datos");
+        }
+en el main dvd.sumaPrecios(1);
