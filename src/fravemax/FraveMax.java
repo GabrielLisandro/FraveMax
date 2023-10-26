@@ -118,8 +118,9 @@ DetalleVentaData dvd = new DetalleVentaData();
 //        JOptionPane.showMessageDialog(null, listClie.toString());
     
 //    }
-      
-        
+ dvd.sumaPrecios(1);
+     JOptionPane.showMessageDialog(null, "La suma de las compras es: " );
+       
     }
     
     

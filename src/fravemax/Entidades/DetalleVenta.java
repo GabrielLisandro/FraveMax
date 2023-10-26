@@ -11,20 +11,23 @@ public class DetalleVenta {
     private Venta venta;
     private Double precioVenta;
     private Producto producto;
+    private Double precioTotal;
 
-    public DetalleVenta(int idDetalleVent, int cantidad, Venta venta, Double precioVenta, Producto producto) {
+    public DetalleVenta(int idDetalleVent, int cantidad, Venta venta, Double precioVenta, Producto producto, Double precioTotal) {
         this.idDetalleVent = idDetalleVent;
         this.cantidad = cantidad;
         this.venta = venta;
         this.precioVenta = precioVenta;
         this.producto = producto;
+        this.precioTotal = precioTotal;
     }
 
-    public DetalleVenta(int cantidad, Venta venta, Double precioVenta, Producto producto) {
+    public DetalleVenta(int cantidad, Venta venta, Double precioVenta, Producto producto, Double precioTotal) {
         this.cantidad = cantidad;
         this.venta = venta;
         this.precioVenta = precioVenta;
         this.producto = producto;
+        this.precioTotal = precioTotal;
     }
 
     public DetalleVenta() {
@@ -68,6 +71,14 @@ public class DetalleVenta {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Double getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(Double precioTotal) {
+        this.precioTotal = precioTotal;
     }
 
     @Override

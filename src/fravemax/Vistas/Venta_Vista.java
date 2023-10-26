@@ -11,24 +11,18 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 
 public class Venta_Vista extends javax.swing.JInternalFrame {
-    
+
     ClienteData clieData = new ClienteData();
     Cliente buscClie = new Cliente();
     Date fecha = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
-   
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     private ArrayList<Producto> listaP;
     ProductoData pData = new ProductoData();
-    
-    
-    
+
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
-            if (Columna==2) {
-                return true;
-            }else {
                 return false;
-            }
         }
     };
 
@@ -37,13 +31,12 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
 
         listaP = (ArrayList<Producto>) pData.ListarProducto();
         cargarBox();
-        
-        
+
         armarCabecera();
-        
-        jTFecha.setText(sdf.format(fecha)); 
-        
-   }
+
+        jTFecha.setText(sdf.format(fecha));
+
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,13 +54,13 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
         jBbuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTPrecioTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jBSalir = new javax.swing.JButton();
         jBlimpiar = new javax.swing.JButton();
         jTcliente = new javax.swing.JTextField();
         jCproducto = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jBGuardar = new javax.swing.JButton();
         jBeliminar = new javax.swing.JButton();
 
         jTFecha.setEditable(false);
@@ -101,12 +94,12 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
             }
         ));
         jTtablaVenta.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jTtablaVentaAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane1.setViewportView(jTtablaVenta);
@@ -130,10 +123,10 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
 
         jLabel5.setText("TOTAL:");
 
-        jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTPrecioTotal.setEditable(false);
+        jTPrecioTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTPrecioTotalActionPerformed(evt);
             }
         });
 
@@ -161,7 +154,12 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("GUARDAR");
+        jBGuardar.setText("GUARDAR");
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
         jBeliminar.setText("ELIMINAR ");
         jBeliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +178,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +187,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
                                 .addGap(54, 54, 54)
                                 .addComponent(jBeliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(54, 54, 54)
                                 .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -252,12 +250,12 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalir)
                     .addComponent(jBlimpiar)
-                    .addComponent(jButton1)
+                    .addComponent(jBGuardar)
                     .addComponent(jBeliminar))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -292,9 +290,8 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     private void jBlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlimpiarActionPerformed
         try {
             String dni = jTDni.getText();
-           
 
-            if (dni.isEmpty())  {
+            if (dni.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Los Campos ya estan Limpios");
             } else {
                 limpiarCampos();
@@ -307,53 +304,39 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBlimpiarActionPerformed
 
     private void jBagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBagregarActionPerformed
-
         jBbuscar.setSelected(true);
         CargaProductos();
         jBbuscar.setEnabled(true);
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }//GEN-LAST:event_jBagregarActionPerformed
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
-            
+
         buscClie = clieData.buscarClienteDni(Integer.parseInt(jTDni.getText()));
         Cliente clie = new Cliente();
 
         if (buscClie != null) {
-            String nombre = buscClie.getApellido() +" "+ buscClie.getNombre();
+            String nombre = buscClie.getApellido() + " " + buscClie.getNombre();
             jTcliente.setText(nombre);
-           
+
         } else {
             buscClie = null;
         }
 
 
-
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jTFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFechaActionPerformed
-            jTFecha.setEditable(false);
-        
+        jTFecha.setEditable(false);
+
     }//GEN-LAST:event_jTFechaActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void jTPrecioTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPrecioTotalActionPerformed
+        
+    }//GEN-LAST:event_jTPrecioTotalActionPerformed
 
     private void jCproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCproductoActionPerformed
-       
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jCproductoActionPerformed
 
     private void jTtablaVentaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTtablaVentaAncestorAdded
@@ -361,20 +344,33 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTtablaVentaAncestorAdded
 
     private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
-       
+
         borrarFilaSelec();
-        
-        
+
+
     }//GEN-LAST:event_jBeliminarActionPerformed
 
-    
-    public static String fechaActual(){
-        Date fecha = new Date(); 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
-        return sdf.format(fecha);  
-    } 
-    
-    
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        int filas = jTtablaVenta.getSelectedRow();
+        if (filas != -1) {
+            int j = jTtablaVenta.getSelectedRow();//Integer.parseInt(jTtabla.getModel().getValueAt(i, 0).toString());
+            String prod = jTtablaVenta.getModel().getValueAt(j, 0).toString();
+            double precio = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 1).toString());
+            int cant = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 2).toString());
+            double precioTo = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 3).toString()) ;
+            
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar la Venta!!");
+        }
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
+    public static String fechaActual() {
+        Date fecha = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(fecha);
+    }
+
     private void borrarFilasTabla() {
         int indice = modelo.getRowCount() - 1;
         for (int i = indice; i >= 0; i--) {
@@ -391,57 +387,64 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     }
 
     private void limpiarCampos() {
-        jTDni.setText("");        
+        jTDni.setText("");
         jTcliente.setText("");
     }
-    
-    private void cargarBox(){
-        
-         for (Producto producto : listaP) {
+
+    private void cargarBox() {
+
+        for (Producto producto : listaP) {
             jCproducto.addItem(producto.getNombreProducto());
-        
+
+        }
+
     }
-     
-         
-    }
-    
+    private double precioTotal = 0.0;
+
     private void CargaProductos() {
         // Obtener el nombre del producto seleccionado en el JComboBox
         String nombreProductoSeleccionado = (String) jCproducto.getSelectedItem();
 
-       
         // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
         for (Producto producto : listaP) {
             if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
-                modelo.addRow(new Object[]{ producto.getNombreProducto(), producto.getPrecioActual()});
-                
-                
-            }
+               int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad:"));
+            double precioUnitario = producto.getPrecioActual();
+            double totalPorProducto = cantidad * precioUnitario;
+            modelo.addRow(new Object[]{producto.getNombreProducto(), precioUnitario, cantidad, totalPorProducto});
+            precioTotal += totalPorProducto; // Actualizar el precio total
+            jTPrecioTotal.setText(String.valueOf(precioTotal)); // Actualizar el JTPrecioTotal del precio total
+        }
         }
     }
-    
-    private void borrarFilaSelec(){
-        
-          int fila = jTtablaVenta.getSelectedRow();
-            if (fila != -1) {
-                int i = jTtablaVenta.getSelectedRow();
-                modelo.removeRow(i);
-                
-        
-        
+    private double calcularSumaTotal() {
+    double sumaTotal = 0.0;
+    for (int fila = 0; fila < modelo.getRowCount(); fila++) {
+        double precioTotalPorFila = (double) modelo.getValueAt(fila, 3); // 3 es el índice de la columna "Precio Total"
+        sumaTotal += precioTotalPorFila;
     }
-       
-   } 
-    
-    
-    
+    return sumaTotal;
+}
+
+    private void borrarFilaSelec() {
+
+        int fila = jTtablaVenta.getSelectedRow();
+        if (fila != -1) {
+            int i = jTtablaVenta.getSelectedRow();
+            modelo.removeRow(i);
+
+        }
+
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jBagregar;
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBeliminar;
     private javax.swing.JButton jBlimpiar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jCproducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -453,8 +456,8 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTDni;
     private javax.swing.JTextField jTFecha;
+    private javax.swing.JTextField jTPrecioTotal;
     private javax.swing.JTextField jTcliente;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable jTtablaVenta;
     // End of variables declaration//GEN-END:variables
 

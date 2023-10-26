@@ -106,7 +106,7 @@ public class DetalleVentaData {
 
             JOptionPane.showMessageDialog(null, "Error de conexion con la base de datos");
         }
-}
+    }
 
 //Listar todos los productos de una venta en una fecha específica.
     public List<Producto> listarProductosDeVentaEnFecha(LocalDate fecha) {
@@ -117,7 +117,8 @@ public class DetalleVentaData {
 
         List<Producto> productos = new ArrayList<>();
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (
+                PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDate(1, Date.valueOf(fecha));
             ResultSet rs = ps.executeQuery();
 
@@ -169,9 +170,36 @@ public class DetalleVentaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al conectarse con la Base de Datos" + ex.getMessage());
         }
-         return prodCli;
+        return prodCli;
     }
 
-    
-    
-}
+    public void guardarVenta(String ) {
+        try {
+            String prec = "SELECT SUM(cantidad * precio) AS precioTotal FROM detalleventa";
+
+            PreparedStatement ps = connection.prepareStatement(prec);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                double precioTotal = rs.getDouble("precioTotal");
+                System.out.println("Precio total para ID " + id + ": " + precioTotal);
+            }
+            connection.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectarse con la Base de Datos");
+        }
+
+    }
+
+}/*private void initcomponents(){
+   ImageIcon icono = new ImageIcon(getClass().getResource("/·proyecto donde esta la imagen·/·clase donde se encuentra la imagen·/imagen que subimos"));
+Image miImagen = icono.getImage();
+escritorio = new javax.swing.jDesktopPane(){
+
+    public void paintComponent(Graphics g){
+
+        g.drawImage (miImagen,0,0,getWidth(),getHeight(),this);
+    }
+ }*/
