@@ -1,10 +1,24 @@
 
 package fravemax.Vistas;
 
+import fravemax.AccesoADatos.VentaData;
+import fravemax.Entidades.Venta;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VentaXfecha extends javax.swing.JInternalFrame {
 
+    private ArrayList<Venta> listaF;
+    VentaData vd = new VentaData();
+    Venta busfe = new Venta();
+    
+    
+    
+    
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
             return false;
@@ -13,8 +27,15 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
     
     public VentaXfecha() {
         initComponents();
+    
+        listaF = (ArrayList<Venta>)vd.listarPorFecha(LocalDate.MIN);
+        
         
         armarCabecera();
+    
+    
+    
+    
     }
 
    
@@ -34,6 +55,12 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
         jLabel1.setText("LISTAR VENTAS POR FECHA");
 
         jLabel2.setText("FECHA:");
+
+        jTfecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTfechaActionPerformed(evt);
+            }
+        });
 
         jBbuscar.setText("BUSCAR");
         jBbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -110,12 +137,32 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
-    
+
+        busfe = (Venta) vd.listarPorFecha(LocalDate.parse(jTfecha.getText()));
+        
+        if (busfe == null) {
+            JOptionPane.showMessageDialog(null, "Ingrege una fecha valida con formato DD/MM/YYYY");
+        }else{
+            
+            
+            
+            
+            
+        }
+        
+        
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
       dispose();
     }//GEN-LAST:event_jBsalirActionPerformed
+
+    private void jTfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTfechaActionPerformed
+       
+        
+        
+        
+    }//GEN-LAST:event_jTfechaActionPerformed
 
     
     private void armarCabecera() {
@@ -131,6 +178,26 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
         }   
      }
 
+    private void cargarListado(){
+        
+     String fecha = jTfecha.getText();
+     
+        for (Venta venta : listaF) {
+            if (venta.) {
+                
+            }
+            
+            
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBsalir;
