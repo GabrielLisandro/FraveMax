@@ -96,3 +96,6 @@ desde aca es detalleventadata
             JOptionPane.showMessageDialog(null, "Error al conectarse con la Base de Datos");
         }
 en el main dvd.sumaPrecios(1);
+
+PAGINA CON OPCIONES DE COMO RESOLVER PRECIO TOTAL
+https://es.stackoverflow.com/questions/128421/c%C3%B3mo-multiplicar-celdas-de-un-jtable-java-al-editar-la-tabla-como-en-exel
