@@ -173,19 +173,32 @@ public class DetalleVentaData {
         return prodCli;
     }
 
-    public void guardarVenta(String ) {
+    public void guardarVenta(int cantidad, int idVenta, double precio, int idProducto, double precioTotal) {
         try {
-            String prec = "SELECT SUM(cantidad * precio) AS precioTotal FROM detalleventa";
+            String prec = "INSERT INTO detalleventa(cantidad, idVenta, precio,"
+                    + " idProducto, precioTotal) "
+                    + "VALUES (?,?,?,?,?)";
 
-            PreparedStatement ps = connection.prepareStatement(prec);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            DetalleVenta dv = new DetalleVenta();
+            PreparedStatement ps = connection.prepareStatement(prec, Statement.RETURN_GENERATED_KEYS);
 
-            if (rs.next()) {
-                double precioTotal = rs.getDouble("precioTotal");
-                System.out.println("Precio total para ID " + id + ": " + precioTotal);
+            ps.setInt(1, cantidad);
+            ps.setInt(2, idVenta);
+            ps.setDouble(3, precio);
+            ps.setInt(4, idProducto);
+            ps.setDouble(5, precioTotal);
+
+            ps.executeUpdate();
+            ResultSet focas = ps.getGeneratedKeys();
+
+            if (focas.next()) {
+                dv.setIdDetalleVent(focas.getInt(1));
+                JOptionPane.showMessageDialog(null, "Se pudo guardar la Venta");
+                System.out.println("Precio total para ID " + ": " + precioTotal);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar la Venta");
             }
-            connection.close();
+            ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al conectarse con la Base de Datos");

@@ -1,8 +1,10 @@
 package fravemax.Vistas;
 
 import fravemax.AccesoADatos.ClienteData;
+import fravemax.AccesoADatos.DetalleVentaData;
 import fravemax.AccesoADatos.ProductoData;
 import fravemax.Entidades.Cliente;
+import fravemax.Entidades.DetalleVenta;
 import fravemax.Entidades.Producto;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
 
     private ArrayList<Producto> listaP;
     ProductoData pData = new ProductoData();
+    DetalleVentaData dv = new DetalleVentaData();
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
@@ -358,8 +361,9 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
             double precio = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 1).toString());
             int cant = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 2).toString());
             double precioTo = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 3).toString()) ;
-            
-            
+            int idPro = ((Producto) jCproducto.getSelectedItem()).getIdProducto();
+
+            dv.guardarVenta(cant, cant, precio, idPro, precioTotal);
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar la Venta!!");
         }
