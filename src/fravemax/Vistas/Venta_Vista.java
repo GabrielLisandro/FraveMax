@@ -3,10 +3,14 @@ package fravemax.Vistas;
 import fravemax.AccesoADatos.ClienteData;
 import fravemax.AccesoADatos.DetalleVentaData;
 import fravemax.AccesoADatos.ProductoData;
+import fravemax.AccesoADatos.VentaData;
 import fravemax.Entidades.Cliente;
 import fravemax.Entidades.DetalleVenta;
 import fravemax.Entidades.Producto;
+import fravemax.Entidades.Venta;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,10 +26,11 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     private ArrayList<Producto> listaP;
     ProductoData pData = new ProductoData();
     DetalleVentaData dv = new DetalleVentaData();
+    VentaData vf = new VentaData();
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
-                return false;
+            return false;
         }
     };
 
@@ -313,14 +318,13 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBagregarActionPerformed
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
-
-        buscClie = clieData.buscarClienteDni(Integer.parseInt(jTDni.getText()));
-        Cliente clie = new Cliente();
+        int dni = Integer.parseInt(jTDni.getText());
+        buscClie = clieData.buscarClienteDni(dni);
 
         if (buscClie != null) {
             String nombre = buscClie.getApellido() + " " + buscClie.getNombre();
             jTcliente.setText(nombre);
-
+            int idClie = buscClie.getIdCliente();
         } else {
             buscClie = null;
         }
@@ -334,7 +338,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTFechaActionPerformed
 
     private void jTPrecioTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPrecioTotalActionPerformed
-        
+
     }//GEN-LAST:event_jTPrecioTotalActionPerformed
 
     private void jCproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCproductoActionPerformed
@@ -354,19 +358,25 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBeliminarActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        int filas = jTtablaVenta.getSelectedRow();
-        if (filas != -1) {
-            int j = jTtablaVenta.getSelectedRow();//Integer.parseInt(jTtabla.getModel().getValueAt(i, 0).toString());
-            String prod = jTtablaVenta.getModel().getValueAt(j, 0).toString();
-            double precio = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 1).toString());
-            int cant = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 2).toString());
-            double precioTo = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 3).toString()) ;
-            int idPro = ((Producto) jCproducto.getSelectedItem()).getIdProducto();
+       
+    int filas = jTtablaVenta.getSelectedRow();
+    if (filas != -1) {
+        int j = jTtablaVenta.getSelectedRow();
+        int idVe = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 0).toString());
+        String prod = jTtablaVenta.getModel().getValueAt(j, 1).toString();
+        double precio = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 2).toString());
+        int cant = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 3).toString());
+        double precioTo = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 4).toString());
+int idPro = ;
+        int idCli = buscClie.getIdCliente();
+        LocalDate fech = LocalDate.now();
+        vf.guardarVenta(idVe, idCli, fech);
+        dv.guardarVenta(cant, idVe, precio, idPro, precioTo);
+        JOptionPane.showMessageDialog(this, "Venta guardada exitosamente.");
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila antes de guardar la venta.");
+    }
 
-            dv.guardarVenta(cant, cant, precio, idPro, precioTotal);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar la Venta!!");
-        }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     public static String fechaActual() {
@@ -383,6 +393,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     }
 
     private void armarCabecera() {
+        modelo.addColumn("ID CLIENTE");
         modelo.addColumn("PRODUCTO");
         modelo.addColumn("PRECIO");
         modelo.addColumn("CANTIDAD");
@@ -408,27 +419,28 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     private void CargaProductos() {
         // Obtener el nombre del producto seleccionado en el JComboBox
         String nombreProductoSeleccionado = (String) jCproducto.getSelectedItem();
-
+        int idVenta = vf.proximaVenta();
         // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
         for (Producto producto : listaP) {
             if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
-               int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad:"));
-            double precioUnitario = producto.getPrecioActual();
-            double totalPorProducto = cantidad * precioUnitario;
-            modelo.addRow(new Object[]{producto.getNombreProducto(), precioUnitario, cantidad, totalPorProducto});
-            precioTotal += totalPorProducto; // Actualizar el precio total
-            jTPrecioTotal.setText(String.valueOf(precioTotal)); // Actualizar el JTPrecioTotal del precio total
-        }
+                int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad:"));
+                double precioUnitario = producto.getPrecioActual();
+                double totalPorProducto = cantidad * precioUnitario;
+                modelo.addRow(new Object[]{idVenta, producto.getNombreProducto(), precioUnitario, cantidad, totalPorProducto});
+                precioTotal += totalPorProducto; // Actualizar el precio total
+                jTPrecioTotal.setText(String.valueOf(precioTotal)); // Actualizar el JTPrecioTotal del precio total
+            }
         }
     }
+
     private double calcularSumaTotal() {
-    double sumaTotal = 0.0;
-    for (int fila = 0; fila < modelo.getRowCount(); fila++) {
-        double precioTotalPorFila = (double) modelo.getValueAt(fila, 3); // 3 es el índice de la columna "Precio Total"
-        sumaTotal += precioTotalPorFila;
+        double sumaTotal = 0.0;
+        for (int fila = 0; fila < modelo.getRowCount(); fila++) {
+            double precioTotalPorFila = (double) modelo.getValueAt(fila, 3); // 3 es el índice de la columna "Precio Total"
+            sumaTotal += precioTotalPorFila;
+        }
+        return sumaTotal;
     }
-    return sumaTotal;
-}
 
     private void borrarFilaSelec() {
 

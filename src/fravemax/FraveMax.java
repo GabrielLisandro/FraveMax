@@ -118,9 +118,9 @@ DetalleVentaData dvd = new DetalleVentaData();
 //        JOptionPane.showMessageDialog(null, listClie.toString());
     
 //    }
- dvd.guardarVenta(3, 2, 4200.1, 3, 12600.3);
-    
-       
+// dvd.guardarVenta(3, 2, 4200.1, 3, 12600.3);
+   // veDa.proximaVenta();
+     veDa.guardarVenta(veDa.proximaVenta(), 2, LocalDate.of(2023, 5, 22));
     }
     
     

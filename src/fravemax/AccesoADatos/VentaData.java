@@ -59,6 +59,35 @@ public class VentaData {
 
     }
 
+    public void guardarVenta(int idVenta, int idCliente, LocalDate fechaVenta) {
+
+        String ingresarVenta = "INSERT INTO venta"
+                + " VALUES (?,?,?) ";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(ingresarVenta);
+
+            ps.setInt(1, idVenta);
+            ps.setInt(2, idCliente);
+            ps.setDate(3, Date.valueOf(fechaVenta));
+
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Venta ingresada");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo ingresar la Venta");
+            }
+
+            ps.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: Base de dato erronea");
+        }
+
+    }
+
     public void borrarVenti(int idVenta) {
         String ims = "Update venta set estado=0 Where idVenta=? ";
 
@@ -223,6 +252,26 @@ public class VentaData {
         return listaClient;
     }
 
-    
-    
+    public int proximaVenta() {
+        String sql = "SELECT MAX(idventa) + 1 AS proximo_id FROM venta";
+
+        int proximoIdVenta = 1;
+        PreparedStatement sp;
+
+        try {
+            sp = connection.prepareStatement(sql);
+            ResultSet st = sp.executeQuery();
+
+            if (st.next()) {
+                proximoIdVenta = st.getInt("proximo_id");
+            }
+//            JOptionPane.showMessageDialog(null, proximoIdVenta);
+            sp.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la conexion de la Base de Datos");
+        }
+        return proximoIdVenta;
+    }
+
 }

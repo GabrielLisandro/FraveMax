@@ -182,14 +182,14 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
         
      String fecha = jTfecha.getText();
      
-        for (Venta venta : listaF) {
-            if (venta.) {
-                
-            }
-            
-            
-        }
-        
+//        for (Venta venta : listaF) {
+//            if (venta.) {
+//                
+//            }
+//            
+//            
+////        }
+//        
         
         
         
