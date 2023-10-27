@@ -1,12 +1,16 @@
-
 package fravemax.Vistas;
 
+import fravemax.AccesoADatos.DetalleVentaData;
 import fravemax.AccesoADatos.VentaData;
+import fravemax.Entidades.Cliente;
+import fravemax.Entidades.DetalleVenta;
+import fravemax.Entidades.Producto;
 import fravemax.Entidades.Venta;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,30 +19,26 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
     private ArrayList<Venta> listaF;
     VentaData vd = new VentaData();
     Venta busfe = new Venta();
-    
-    
-    
-    
+    Producto produc = new Producto();
+    DetalleVentaData dvd = new DetalleVentaData();
+    private ArrayList<Producto> listaP;
+
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int Columna) {
             return false;
         }
     };
-    
+
     public VentaXfecha() {
         initComponents();
-    
-        listaF = (ArrayList<Venta>)vd.listarPorFecha(LocalDate.MIN);
-        
-        
+
+        listaF = (ArrayList<Venta>) vd.listarPorFecha(LocalDate.MIN);
+        listaP = (ArrayList<Producto>) dvd.listarProductosDeVentaEnFecha(LocalDate.MIN);
+
         armarCabecera();
-    
-    
-    
-    
+
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -139,65 +139,60 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
 
         busfe = (Venta) vd.listarPorFecha(LocalDate.parse(jTfecha.getText()));
-        
+
         if (busfe == null) {
             JOptionPane.showMessageDialog(null, "Ingrege una fecha valida con formato DD/MM/YYYY");
-        }else{
-            
-            
-            
-            
-            
+        } else {
+            cargarListado();
+
         }
-        
-        
+
+
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
-      dispose();
+        dispose();
     }//GEN-LAST:event_jBsalirActionPerformed
 
     private void jTfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTfechaActionPerformed
-       
-        
-        
-        
+
+
     }//GEN-LAST:event_jTfechaActionPerformed
 
-    
     private void armarCabecera() {
         modelo.addColumn("CLIENTE");
         modelo.addColumn("PRODUCTO");
         jTtabla.setModel(modelo);
     }
-    
-    private void borrarFilasTabla() {
-        int indice = modelo.getRowCount() -1;   
-        for (int i = indice; i>=0; i--){
-             modelo.removeRow(i);
-        }   
-     }
 
-    private void cargarListado(){
-        
-     String fecha = jTfecha.getText();
-     
-        for (Venta venta : listaF) {
-            if (venta.) {
-                
-            }
-            
-            
+    private void borrarFilasTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
         }
-        
-        
-        
-        
     }
-    
-    
-    
-    
+
+    private void cargarListado() {
+
+     
+    String fecha = jTfecha.getText();
+    try {
+        for (Venta venta : listaF) {
+            if (venta.getFechaVenta().equals(fecha)) {
+                Cliente cliente = venta.getCliente();
+                List<DetalleVenta> detalles = dvd.(venta.getIdVenta()); // Asumiendo que tienes un método para obtener detalles de una venta
+                for (DetalleVenta detalle : detalles) {
+                    Producto producto = detalle.getProducto();
+                    modelo.addRow(new Object[]{cliente.getNombre() + " " + cliente.getApellido(), producto.getNombreProducto()});
+                }
+            }
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Fecha ingresada no válida. Formato válido: DD/MM/YYYY");
+    }
+}
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBsalir;
