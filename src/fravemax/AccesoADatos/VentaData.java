@@ -265,7 +265,7 @@ public class VentaData {
             if (st.next()) {
                 proximoIdVenta = st.getInt("proximo_id");
             }
-//            JOptionPane.showMessageDialog(null, proximoIdVenta);
+ //JOptionPane.showMessageDialog(null, proximoIdVenta);
             sp.close();
 
         } catch (SQLException ex) {

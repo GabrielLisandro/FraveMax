@@ -20,6 +20,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
 
     ClienteData clieData = new ClienteData();
     Cliente buscClie = new Cliente();
+    Producto producto = new Producto();
     Date fecha = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -341,9 +342,16 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jTPrecioTotalActionPerformed
 
+    private Producto productoSeleccionado;
+
     private void jCproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCproductoActionPerformed
-
-
+        String nombreProductoSeleccionado = (String) jCproducto.getSelectedItem();
+        for (Producto p : listaP) {
+            if (p.getNombreProducto().equals(nombreProductoSeleccionado)) {
+                productoSeleccionado = p;
+                break;
+            }
+        }
     }//GEN-LAST:event_jCproductoActionPerformed
 
     private void jTtablaVentaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTtablaVentaAncestorAdded
@@ -353,29 +361,30 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
 
         borrarFilaSelec();
-
-
     }//GEN-LAST:event_jBeliminarActionPerformed
 
+
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-       
-    int filas = jTtablaVenta.getSelectedRow();
-    if (filas != -1) {
-        int j = jTtablaVenta.getSelectedRow();
-        int idVe = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 0).toString());
-        String prod = jTtablaVenta.getModel().getValueAt(j, 1).toString();
-        double precio = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 2).toString());
-        int cant = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 3).toString());
-        double precioTo = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 4).toString());
-int idPro = ;
-        int idCli = buscClie.getIdCliente();
-        LocalDate fech = LocalDate.now();
-        vf.guardarVenta(idVe, idCli, fech);
-        dv.guardarVenta(cant, idVe, precio, idPro, precioTo);
-        JOptionPane.showMessageDialog(this, "Venta guardada exitosamente.");
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila antes de guardar la venta.");
-    }
+        int filas = jTtablaVenta.getSelectedRow();
+        if (filas != -1) {
+            int j = jTtablaVenta.getSelectedRow();
+            int idVe = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 0).toString());
+            String prod = jTtablaVenta.getModel().getValueAt(j, 1).toString();
+            double precio = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 2).toString());
+            int cant = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 3).toString());
+            double precioTo = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 4).toString());
+            int idPro = productoSeleccionado.getIdProducto();
+            System.out.println(idPro);
+            int idCli = buscClie.getIdCliente();
+            LocalDate fech = LocalDate.now();
+            //guardar venta de venta data
+            vf.guardarVenta(idVe, idCli, fech);
+            //guardar detalle de venta
+            dv.guardarVenta(cant, idVe, precio, idPro, precioTo);
+            // JOptionPane.showMessageDialog(this, "Venta guardada exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila antes de guardar la venta.");
+        }
 
     }//GEN-LAST:event_jBGuardarActionPerformed
 
@@ -393,7 +402,7 @@ int idPro = ;
     }
 
     private void armarCabecera() {
-        modelo.addColumn("ID CLIENTE");
+        modelo.addColumn("ID VENTA");
         modelo.addColumn("PRODUCTO");
         modelo.addColumn("PRECIO");
         modelo.addColumn("CANTIDAD");
@@ -410,7 +419,6 @@ int idPro = ;
 
         for (Producto producto : listaP) {
             jCproducto.addItem(producto.getNombreProducto());
-
         }
 
     }
@@ -431,6 +439,7 @@ int idPro = ;
                 jTPrecioTotal.setText(String.valueOf(precioTotal)); // Actualizar el JTPrecioTotal del precio total
             }
         }
+        int idpro = producto.getIdProducto();
     }
 
     private double calcularSumaTotal() {
@@ -448,9 +457,7 @@ int idPro = ;
         if (fila != -1) {
             int i = jTtablaVenta.getSelectedRow();
             modelo.removeRow(i);
-
         }
-
     }
 
 
