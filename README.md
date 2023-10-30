@@ -99,3 +99,46 @@ en el main dvd.sumaPrecios(1);
 
 PAGINA CON OPCIONES DE COMO RESOLVER PRECIO TOTAL
 https://es.stackoverflow.com/questions/128421/c%C3%B3mo-multiplicar-celdas-de-un-jtable-java-al-editar-la-tabla-como-en-exel
+
+
+ public List<Venta> listarXFecha(String nombre, String apellido, LocalDate fechaVenta) {
+
+        String Sql = "SELECT producto.nombre,"
+                + "    cliente.apellido venta.fechaVenta FROM venta JOIN "
+                + "    detalleventa ON venta.idVenta = detalleventa.idVenta JOIN"
+                + "    producto ON detalleventa.idProducto = producto.idProducto JOIN"
+                + "    cliente ON venta.idCliente = cliente.idCliente WHERE"
+                + "    venta.fechaVenta = ?";
+
+        List<Venta> listaFecha = new ArrayList<>();
+        Venta venta = null;
+
+        try {
+            PreparedStatement psList = connection.prepareStatement(Sql);
+            psList.setString(1, nombre);
+            psList.setString(2, apellido);
+            psList.setDate(3, Date.valueOf(fechaVenta));
+            ResultSet rs = psList.executeQuery();
+
+            while (rs.next()) {
+                DetalleVenta deta = new DetalleVenta();
+                Producto prod = new Producto();
+                venta = new Venta();
+                Cliente cl = cd.buscarCliente(rs.getInt("idCliente"));
+                prod.getNombreProducto();
+                cl.getApellido();
+                //venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+                
+               // venta.setEstado(true);
+
+                listaFecha.add(venta);
+            }
+
+            psList.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectar con la Base de Datos");
+        }
+        return listaFecha;
+    }
