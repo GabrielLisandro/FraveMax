@@ -142,3 +142,35 @@ https://es.stackoverflow.com/questions/128421/c%C3%B3mo-multiplicar-celdas-de-un
         }
         return listaFecha;
     }
+private void cargarListado() {
+    
+    borrarFilasTabla();
+
+    
+    LocalDate fechaSeleccionada = LocalDate.parse(jTfecha.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+  
+    for (Venta venta : listaF) {
+        if (venta.getFechaVenta().isEqual(fechaSeleccionada)) {
+            
+            Producto producto = obtenerProductoDeDetalleVenta(venta.getDetalleVenta());//aca tengo el error
+
+           
+            modelo.addRow(new Object[]{venta.getCliente().getApellido(), producto.getNombreProducto()});
+        }
+    }
+}
+
+private Producto obtenerProductoDeDetalleVenta(DetalleVenta detalleVenta) {
+   
+    List<Producto> listaProductos = obtenerListaDeProductos(); 
+ int idProductoDetalleVenta = detalleVenta.getProducto.getIdProducto(); 
+    return listaProductos.stream()
+            .filter(producto -> producto.getIdProducto() == idProductoDetalleVenta)
+            .findFirst()
+            .orElse(null);
+}
+private List<Producto> obtenerListaDeProductos() {
+    
+}
+
