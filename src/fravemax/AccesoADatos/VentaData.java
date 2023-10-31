@@ -2,6 +2,8 @@ package fravemax.AccesoADatos;
 
 import fravemax.Entidades.Venta;
 import fravemax.Entidades.Cliente;
+import fravemax.Entidades.DetalleVenta;
+import fravemax.Entidades.Producto;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -222,6 +224,49 @@ public class VentaData {
         return listaFecha;
     }
 
+    public List<Venta> listarXFecha(LocalDate fVenta) {
+
+        String Sql = "SELECT producto.nombre,"
+                + "    cliente.apellido, venta.fechaVenta FROM venta JOIN "
+                + "    detalleventa ON venta.idVenta = detalleventa.idVenta JOIN"
+                + "    producto ON detalleventa.idProducto = producto.idProducto JOIN"
+                + "    cliente ON venta.idCliente = cliente.idCliente WHERE"
+                + "    venta.fechaVenta = ?";
+
+        List<Venta> listaFecha = new ArrayList<>();
+//        Venta venta = null;
+//        Producto prr = null;
+
+        try {
+            PreparedStatement psList = connection.prepareStatement(Sql);
+//            psList.setString(1, prr.getNombreProducto());
+//            psList.setString(2, venta.getCliente().getApellido());
+            psList.setDate(1, Date.valueOf(fVenta));
+            ResultSet rs = psList.executeQuery();
+
+            while (rs.next()) {
+                DetalleVenta deta = new DetalleVenta();
+                Producto prr = new Producto();
+                Venta venta = new Venta();
+                Cliente cli = new Cliente();
+                //Cliente cl = cd.buscarCliente(rs.getInt("idCliente"));
+                prr.setNombreProducto(rs.getString("nombre"));
+                cli.setApellido(rs.getString("apellido"));
+//venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+
+                // venta.setEstado(true);
+                listaFecha.add(venta);
+            }
+
+            psList.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectar con la Base de Datos");
+        }
+        return listaFecha;
+    }
+
     public List<Venta> ventasCliente(int id) {
 
         String sqlVC = "SELECT * FROM venta WHERE idCliente = ? ";
@@ -265,7 +310,7 @@ public class VentaData {
             if (st.next()) {
                 proximoIdVenta = st.getInt("proximo_id");
             }
- //JOptionPane.showMessageDialog(null, proximoIdVenta);
+            //JOptionPane.showMessageDialog(null, proximoIdVenta);
             sp.close();
 
         } catch (SQLException ex) {

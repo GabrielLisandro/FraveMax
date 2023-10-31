@@ -12,6 +12,15 @@ public class Venta {
     private Cliente cliente;
     private LocalDate fechaVenta;
     private boolean estado;
+    private DetalleVenta detVenta;
+
+    public DetalleVenta getDetVenta() {
+        return detVenta;
+    }
+
+    public void setDetVenta(DetalleVenta detVenta) {
+        this.detVenta = detVenta;
+    }
 
     public Venta() {
     }

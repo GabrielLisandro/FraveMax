@@ -363,7 +363,6 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
         borrarFilaSelec();
     }//GEN-LAST:event_jBeliminarActionPerformed
 
-
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         int filas = jTtablaVenta.getSelectedRow();
         if (filas != -1) {
@@ -374,18 +373,15 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
             int cant = Integer.parseInt(jTtablaVenta.getModel().getValueAt(j, 3).toString());
             double precioTo = Double.parseDouble(jTtablaVenta.getModel().getValueAt(j, 4).toString());
             int idPro = productoSeleccionado.getIdProducto();
-            System.out.println(idPro);
             int idCli = buscClie.getIdCliente();
             LocalDate fech = LocalDate.now();
             //guardar venta de venta data
             vf.guardarVenta(idVe, idCli, fech);
             //guardar detalle de venta
             dv.guardarVenta(cant, idVe, precio, idPro, precioTo);
-            // JOptionPane.showMessageDialog(this, "Venta guardada exitosamente.");
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila antes de guardar la venta.");
         }
-
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     public static String fechaActual() {
@@ -439,7 +435,6 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
                 jTPrecioTotal.setText(String.valueOf(precioTotal)); // Actualizar el JTPrecioTotal del precio total
             }
         }
-        int idpro = producto.getIdProducto();
     }
 
     private double calcularSumaTotal() {
