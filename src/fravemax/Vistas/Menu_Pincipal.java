@@ -1,6 +1,10 @@
 
 package fravemax.Vistas;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 
 public class Menu_Pincipal extends javax.swing.JFrame {
 
@@ -13,7 +17,14 @@ public class Menu_Pincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icono = new ImageIcon(getClass().getResource("/fravemax/Utilidades/FONDO.jpg.png"));
+        Image miImagen = icono.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+
+                g.drawImage (miImagen,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMarticulo = new javax.swing.JMenu();
         jMproductos = new javax.swing.JMenuItem();
@@ -28,10 +39,10 @@ public class Menu_Pincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         escritorio.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 escritorioAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -150,7 +161,7 @@ public class Menu_Pincipal extends javax.swing.JFrame {
     private void jMAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMAgregarClienteActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        ClienteVista bps = new ClienteVista();
+        ClienteV bps = new ClienteV();
         bps.setVisible(true);
         escritorio.add(bps);
         escritorio.moveToFront(bps);    }//GEN-LAST:event_jMAgregarClienteActionPerformed
