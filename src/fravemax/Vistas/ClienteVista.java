@@ -235,7 +235,7 @@ public class ClienteVista extends javax.swing.JInternalFrame {
 
             } else if (dni.matches("\\d{8}") || dni.matches("\\d{9}")) {
                 int dni1 = Integer.parseInt(dni);
-                System.out.println("El DNI es válido y no contiene letras.");
+                System.out.println("El DNI es válido y no contiene letras."); 
                 cli.setDni(dni1);
 
             } else {
@@ -245,27 +245,35 @@ public class ClienteVista extends javax.swing.JInternalFrame {
 
             if (nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre");
+            } else if (!nombre.matches("^[A-Za-z]+$")) {
+                JOptionPane.showMessageDialog(null, "El campo Nombre solo debe contener letras.");
+            return;
             } else {
                 cli.setNombre(nombre);
-
             }
+
             if (apellido.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Apellido");
+            } else if (!apellido.matches("^[A-Za-z]+$")) {
+                JOptionPane.showMessageDialog(null, "El campo Apellido solo debe contener letras.");
+            return;
             } else {
                 cli.setApellido(apellido);
-
             }
             if (domicilio.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar el campo Domicilio");
+            return;
             } else {
                 cli.setDomicilio(domicilio);
 
             }
             if (telefono.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el campo Telefono");
+                JOptionPane.showMessageDialog(null, "Debe completar el campo Teléfono");
+            } else if (!telefono.matches("^[0-9]+$")) {
+                JOptionPane.showMessageDialog(null, "El campo Teléfono solo debe contener números.");
+           return;
             } else {
                 cli.setTelefono(telefono);
-
             }
             clieData.agregarCliente(cli);
 
@@ -294,28 +302,44 @@ public class ClienteVista extends javax.swing.JInternalFrame {
 
     private void jBmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmodificarActionPerformed
 
-        try {
-            int dni = Integer.parseInt(jTdni.getText());
-            String nombre = jTnombre.getText();
-            String apellido = jTapellido.getText();
-            String domicilio = jTdomicilio.getText();
-            String telefono = jTtelefono.getText();
+       try {
+    int dni = Integer.parseInt(jTdni.getText());
+    String nombre = jTnombre.getText();
+    String apellido = jTapellido.getText();
+    String domicilio = jTdomicilio.getText();
+    String telefono = jTtelefono.getText();
 
-            buscClie.setDni(dni);
-            buscClie.setNombre(nombre);
-            buscClie.setApellido(apellido);
-            buscClie.setDomicilio(domicilio);
-            buscClie.setTelefono(telefono);
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe completar el campo Nombre");
+    } else if (!nombre.matches("^[A-Za-z]+$")) {
+        JOptionPane.showMessageDialog(this, "El campo Nombre solo debe contener letras.");
+    } else if (apellido.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe completar el campo Apellido");
+    } else if (!apellido.matches("^[A-Za-z]+$")) {
+        JOptionPane.showMessageDialog(this, "El campo Apellido solo debe contener letras.");
+    } else if (domicilio.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe completar el campo Domicilio");
+    } else if (telefono.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe completar el campo Teléfono");
+    } else if (!telefono.matches("^[0-9]+$")) {
+        JOptionPane.showMessageDialog(this, "El campo Teléfono solo debe contener números.");
+    } else {
+        // Si todas las validaciones pasan, realiza la modificación
+        buscClie.setDni(dni);
+        buscClie.setNombre(nombre);
+        buscClie.setApellido(apellido);
+        buscClie.setDomicilio(domicilio);
+        buscClie.setTelefono(telefono);
 
-            clieData.modificarCliente(buscClie);
+        clieData.modificarCliente(buscClie);
 
-            limpiarCampos();
+        limpiarCampos();
 
-            buscClie = null;
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error la modificacion no se pudo realizar");
-        }
+        buscClie = null;
+    }
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(this, "Error: No se pudo realizar la modificación");
+}
     }//GEN-LAST:event_jBmodificarActionPerformed
 
     private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
