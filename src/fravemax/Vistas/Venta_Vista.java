@@ -304,7 +304,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Los Campos ya estan Limpios");
             } else {
                 limpiarCampos();
-                borrarFilasTabla();
+
             }
 
         } catch (Exception e) {
@@ -319,18 +319,22 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBagregarActionPerformed
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
-        int dni = Integer.parseInt(jTDni.getText());
-        buscClie = clieData.buscarClienteDni(dni);
 
-        if (buscClie != null) {
-            String nombre = buscClie.getApellido() + " " + buscClie.getNombre();
-            jTcliente.setText(nombre);
-            int idClie = buscClie.getIdCliente();
-        } else {
-            buscClie = null;
+        try {
+            int dni = Integer.parseInt(jTDni.getText());
+            buscClie = clieData.buscarClienteDni(dni);
+
+            if (buscClie != null) {
+                String nombre = buscClie.getApellido() + " " + buscClie.getNombre();
+                jTcliente.setText(nombre);
+                int idClie = buscClie.getIdCliente();
+            } else {
+                buscClie = null;
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Controle que esten correctos los datos o que no esten vacios los campos");
         }
-
-
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jTFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFechaActionPerformed
@@ -409,6 +413,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     private void limpiarCampos() {
         jTDni.setText("");
         jTcliente.setText("");
+        modelo.setRowCount(0);
     }
 
     private void cargarBox() {
@@ -422,18 +427,27 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
 
     private void CargaProductos() {
         // Obtener el nombre del producto seleccionado en el JComboBox
-        String nombreProductoSeleccionado = (String) jCproducto.getSelectedItem();
-        int idVenta = vf.proximaVenta();
-        // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
-        for (Producto producto : listaP) {
-            if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
-                int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad:"));
-                double precioUnitario = producto.getPrecioActual();
-                double totalPorProducto = cantidad * precioUnitario;
-                modelo.addRow(new Object[]{idVenta, producto.getNombreProducto(), precioUnitario, cantidad, totalPorProducto});
-                precioTotal += totalPorProducto; // Actualizar el precio total
-                jTPrecioTotal.setText(String.valueOf(precioTotal)); // Actualizar el JTPrecioTotal del precio total
+        try {
+            String nombreProductoSeleccionado = (String) jCproducto.getSelectedItem();
+            int idVenta = vf.proximaVenta();
+            // Recorrer la lista de productos y agregar los productos correspondientes a la tabla
+            for (Producto producto : listaP) {
+                if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
+                    int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad:"));
+                    if (cantidad > 0) {
+
+                        double precioUnitario = producto.getPrecioActual();
+                        double totalPorProducto = cantidad * precioUnitario;
+                        modelo.addRow(new Object[]{idVenta, producto.getNombreProducto(), precioUnitario, cantidad, totalPorProducto});
+                        precioTotal += totalPorProducto; // Actualizar el precio total
+                        jTPrecioTotal.setText(String.valueOf(precioTotal)); // Actualizar el JTPrecioTotal del precio total
+                    } else {
+                        throw new RuntimeException("Debe ingresar numeros mayores a 0");
+                    }
+                }
             }
+        } catch (RuntimeException re) {
+            JOptionPane.showMessageDialog(null, re.getMessage());
         }
     }
 

@@ -189,8 +189,8 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
                 int i = jTtabla.getSelectedRow();
                 int idPro = Integer.parseInt(jTtabla.getModel().getValueAt(i, 0).toString());
                 pData.borrarProducto(idPro);
-            }else{
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Fila");
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una Fila");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "No se pudo eliminar el Producto deseado");
@@ -200,66 +200,71 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBeliminarActionPerformed
 
     private void jBguarCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguarCamActionPerformed
+        try {
 
-        int fila = jTtabla.getSelectedRow();
-        if (fila != -1) {
+            int fila = jTtabla.getSelectedRow();
+            Producto prod = new Producto();
+            if (fila != -1) {
 
-            int i = jTtabla.getSelectedRow();
-            int idProducto = Integer.parseInt(jTtabla.getModel().getValueAt(i, 0).toString());
-            String producto = jTtabla.getModel().getValueAt(i, 1).toString();
-            String descrip = jTtabla.getModel().getValueAt(i, 2).toString();
-            String precio = jTtabla.getModel().getValueAt(i, 3).toString();
-            String stock = jTtabla.getModel().getValueAt(i, 4).toString();
+                int i = jTtabla.getSelectedRow();
+                int idProducto = Integer.parseInt(jTtabla.getModel().getValueAt(i, 0).toString());
+                String producto = jTtabla.getModel().getValueAt(i, 1).toString();
+                String descrip = jTtabla.getModel().getValueAt(i, 2).toString();
+                String precio = jTtabla.getModel().getValueAt(i, 3).toString();
+                String stock = jTtabla.getModel().getValueAt(i, 4).toString();
 
-            if (producto.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el campo Producto");
-                return;
+                if (producto.isEmpty()) {
+                    throw new RuntimeException ("Debe completar el campo Producto");
+                } else {
+                    prod.setNombreProducto(producto);
+                }
+
+                if (descrip.isEmpty()) {
+                    throw new RuntimeException ("Debe completar el campo Descripcion");
+                } else {
+                    prod.setDescripcion(descrip);
+                }
+
+                if (precio.isEmpty()) {
+                   throw new RuntimeException ("Debe completar el campo Precio");
+                } else if (precio.matches("\\d+(\\.\\d+)?")) {
+                    double pc = Double.parseDouble(precio);
+
+                    prod.setPrecioActual(pc);
+
+                } else {
+               throw new RuntimeException ("En el campo Precio debe ingresar solo numeros");
+                }
+
+                if (stock.isEmpty()) {
+                   
+                } else if (stock.matches("\\d+")) {
+                    int st = Integer.parseInt(stock);
+                    prod.setStock(st);
+
+                } else {
+                throw new RuntimeException ("En el campo Stock debe ingresar solo numeros");
+                }
+
+                pData.modificarProductos(producto, descrip, prod.getPrecioActual(), prod.getStock(), idProducto);
             } else {
-                prod.setNombreProducto(producto);
+                JOptionPane.showMessageDialog(null, "Error al modificar el Producto");
             }
+            borrarFilasTabla();
+            cargarBox();
 
-            if (descrip.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el campo Descripcion");
-                return;
-            } else {
-                prod.setDescripcion(descrip);
-            }
-
-            if (precio.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el campo Precio");
-                return;
-            } else if (precio.matches("\\d+(\\.\\d+)?")) {
-                double pc = Double.parseDouble(precio);
-
-                prod.setPrecioActual(pc);
-
-            } else {
-                JOptionPane.showMessageDialog(null, "En el campo Precio debe ingresar solo numeros");
-                return;
-            }
-
-            if (stock.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el campo Stock");
-                return;
-            } else if (stock.matches("\\d+")) {
-                int st = Integer.parseInt(stock);
-                prod.setStock(st);
-
-            } else {
-
-                JOptionPane.showMessageDialog(null, "En el campo Stock debe ingresar solo numeros");
-                return;
-            }
-
-            pData.modificarProductos(producto, descrip, prod.getPrecioActual(), prod.getStock(), idProducto);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al modificar el Producto");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Corrobore que esten bien los datos");
+        
+        }catch (RuntimeException rex) {
+            JOptionPane.showMessageDialog(null, "Corrobore que esten bien los datos");
+            
+        }catch (Exception e) {
+          JOptionPane.showMessageDialog(null, "Error! Verifique los datos");
         }
-        borrarFilasTabla();
-        cargarBox();
     }//GEN-LAST:event_jBguarCamActionPerformed
 
-    private void cargarBox() {
+private void cargarBox() {
         for (Producto producto : listaP) {
             jCproductos.addItem(producto.getNombreProducto());
         }
@@ -284,6 +289,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
             if (producto.getNombreProducto().equals(nombreProductoSeleccionado)) {
                 modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombreProducto(),
                     producto.getDescripcion(), producto.getPrecioActual(), producto.getStock()});
+                System.out.println(producto.getPrecioActual());
             }
         }
     }

@@ -1,4 +1,3 @@
-
 package fravemax.Vistas;
 
 import fravemax.AccesoADatos.ClienteData;
@@ -7,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-
 
 public class ClienteVista extends javax.swing.JInternalFrame {
 
@@ -18,7 +16,6 @@ public class ClienteVista extends javax.swing.JInternalFrame {
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -281,42 +278,41 @@ public class ClienteVista extends javax.swing.JInternalFrame {
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
 
-        buscClie = clieData.buscarClienteDni(Integer.parseInt(jTdni.getText()));
-
-        if (buscClie != null) {
-
+        try {
+            buscClie = clieData.buscarClienteDni(Integer.parseInt(jTdni.getText()));
             jTnombre.setText(buscClie.getNombre());
             jTapellido.setText(buscClie.getApellido());
             jTdomicilio.setText(buscClie.getDomicilio());
             jTtelefono.setText(buscClie.getTelefono());
-        } else {
+        } catch (NumberFormatException e) {
             limpiarCampos();
+            JOptionPane.showMessageDialog(null, "Controle que los campos sean los correctos o que no esten vacios");
             buscClie = null;
         }
 
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmodificarActionPerformed
-        
+
         try {
             int dni = Integer.parseInt(jTdni.getText());
             String nombre = jTnombre.getText();
             String apellido = jTapellido.getText();
             String domicilio = jTdomicilio.getText();
             String telefono = jTtelefono.getText();
-            
+
             buscClie.setDni(dni);
             buscClie.setNombre(nombre);
             buscClie.setApellido(apellido);
             buscClie.setDomicilio(domicilio);
             buscClie.setTelefono(telefono);
-            
+
             clieData.modificarCliente(buscClie);
-            
+
             limpiarCampos();
-                    
+
             buscClie = null;
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error la modificacion no se pudo realizar");
         }
@@ -325,13 +321,13 @@ public class ClienteVista extends javax.swing.JInternalFrame {
     private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
         try {
             int dni = Integer.parseInt(jTdni.getText());
-            
-           if (jTdni.getText() != null){
-           clieData.eliminarCliente(dni);
-           
-           }
-           limpiarCampos();
-            
+
+            if (jTdni.getText() != null) {
+                clieData.eliminarCliente(dni);
+
+            }
+            limpiarCampos();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el Cliente");
         }
