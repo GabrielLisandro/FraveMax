@@ -174,6 +174,7 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
         jBbuscar.setSelected(true);
         CargaProductos();
         jBbuscar.setEnabled(true);
+        
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBbuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBbuscarMouseClicked
