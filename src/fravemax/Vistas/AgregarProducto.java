@@ -10,17 +10,8 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
 
     ProductoData prodat = new ProductoData();
     
-            
-    
-    
-    
-    
-    
     public AgregarProducto() {
         initComponents();
-        
-        
-        
         
     }
 
@@ -166,8 +157,7 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
        
         try {
-            
-       
+         
         String producto = jTproducto.getText();
         String descrip = jTdescripcion.getText();
         String precio = jTprecio.getText();
@@ -224,9 +214,7 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
         
          } catch (Exception e) {
                   JOptionPane.showMessageDialog(null, "Error al ingresar el producto");
-         
-         }
-        
+        }
         
         limpiarCampos();
         
