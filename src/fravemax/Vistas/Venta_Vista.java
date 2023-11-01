@@ -413,6 +413,7 @@ public class Venta_Vista extends javax.swing.JInternalFrame {
     private void limpiarCampos() {
         jTDni.setText("");
         jTcliente.setText("");
+        jTPrecioTotal.setText("");
         modelo.setRowCount(0);
     }
 
