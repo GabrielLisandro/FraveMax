@@ -189,12 +189,14 @@ public class Productos_Vista extends javax.swing.JInternalFrame {
                 int i = jTtabla.getSelectedRow();
                 int idPro = Integer.parseInt(jTtabla.getModel().getValueAt(i, 0).toString());
                 pData.borrarProducto(idPro);
-                System.out.println("se elimino bro");
+            }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Fila");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "No se pudo eliminar el Producto deseado");
         }
         cargarBox();
+        borrarFilasTabla();
     }//GEN-LAST:event_jBeliminarActionPerformed
 
     private void jBguarCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguarCamActionPerformed

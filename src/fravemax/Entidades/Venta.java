@@ -2,10 +2,7 @@ package fravemax.Entidades;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author kamar
- */
+
 public class Venta {
 
     private int idVenta;

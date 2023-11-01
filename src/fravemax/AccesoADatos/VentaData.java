@@ -224,44 +224,41 @@ public class VentaData {
         return listaFecha;
     }
 
-    public List<Venta> listarXFecha(LocalDate fVenta) {
+    public List<DetalleVenta> listarXFecha(LocalDate fVenta) {
 
-        String Sql = "SELECT producto.nombre,"
-                + "    cliente.apellido, venta.fechaVenta FROM venta JOIN "
+        String Sql = "SELECT * FROM venta JOIN "
                 + "    detalleventa ON venta.idVenta = detalleventa.idVenta JOIN"
                 + "    producto ON detalleventa.idProducto = producto.idProducto JOIN"
                 + "    cliente ON venta.idCliente = cliente.idCliente WHERE"
                 + "    venta.fechaVenta = ?";
 
-        List<Venta> listaFecha = new ArrayList<>();
-//        Venta venta = null;
-//        Producto prr = null;
+        List<DetalleVenta> listaFecha = new ArrayList<>();
 
         try {
             PreparedStatement psList = connection.prepareStatement(Sql);
-//            psList.setString(1, prr.getNombreProducto());
-//            psList.setString(2, venta.getCliente().getApellido());
-            psList.setDate(1, Date.valueOf(fVenta));
+
+            psList.setObject(1,fVenta);
             ResultSet rs = psList.executeQuery();
 
             while (rs.next()) {
-                DetalleVenta deta = new DetalleVenta();
-                Producto prr = new Producto();
-                Venta venta = new Venta();
-                Cliente cli = new Cliente();
-                //Cliente cl = cd.buscarCliente(rs.getInt("idCliente"));
-                prr.setNombreProducto(rs.getString("nombre"));
-                cli.setApellido(rs.getString("apellido"));
-//venta.setIdVenta(rs.getInt("idVenta"));
-                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
-
-                // venta.setEstado(true);
-                listaFecha.add(venta);
+               DetalleVenta dv = new DetalleVenta();
+               Producto pr = new ProductoData().buscarProducto(rs.getInt("idProducto"));
+               Venta vent = buscarVenta(rs.getInt("idVenta"));
+               
+               dv.setCantidad(rs.getInt("cantidad"));
+               dv.setIdDetalleVent(rs.getInt("idDetalle"));
+               dv.setPrecioTotal(rs.getDouble("precioTotal"));
+               dv.setPrecioVenta(rs.getDouble("precio"));
+               dv.setProducto(pr);
+               dv.setVenta(vent);
+               
+               listaFecha.add(dv);
             }
 
             psList.close();
 
         } catch (SQLException ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al conectar con la Base de Datos");
         }
         return listaFecha;

@@ -178,8 +178,7 @@ public class ProductoData {
                 producto.setStock(rs.getInt("stock"));
                 producto.setEstado(true);
 
-               JOptionPane.showMessageDialog(null, producto);
-               
+                            
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontro el Producto");
             }

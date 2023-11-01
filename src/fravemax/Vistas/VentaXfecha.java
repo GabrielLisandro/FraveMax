@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class VentaXfecha extends javax.swing.JInternalFrame {
 
-    private ArrayList<Venta> listaF;
+    private ArrayList<DetalleVenta> listaF;
     VentaData vd = new VentaData();
     Venta busfe = new Venta();
     
@@ -32,9 +32,8 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
     public VentaXfecha() {
         initComponents();
     
-        System.out.println(listaF);
         armarCabecera();
-        listaF=(ArrayList<Venta>)vd.listarXFecha(LocalDate.MIN);
+       
     }
 
    
@@ -136,16 +135,28 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
-try {
-     jBbuscar.setSelected(true);
+        try {
+             String fecha = jTfecha.getText();
+    System.out.println(fecha);
+             if(!fecha.isEmpty()){
+                LocalDate fechaLd = LocalDate.parse(fecha);
+                List <DetalleVenta> Dv = new VentaData().listarXFecha(fechaLd);
+    System.out.println(fechaLd);
+                 for (DetalleVenta detalleVenta : Dv) {
+                     modelo.addRow(new Object[]{detalleVenta.getProducto().getNombreProducto(),detalleVenta.getVenta().getCliente().getApellido()});
+                 }
+                
+             }else{
+             throw new RuntimeException("El campo esta Vacío"); 
+             
+             }
+        }catch (DateTimeParseException e){
+            JOptionPane.showMessageDialog(null, "Ingrese fecha valida");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
      
-                cargarListado();
-                System.out.println("hola");
-        jBbuscar.setEnabled(true);
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al buscar: " + e.getMessage());
-    }   
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
@@ -169,34 +180,37 @@ try {
      }
 
     private void cargarListado() {
-    // Borrar las filas existentes en la tabla
-    borrarFilasTabla();
-    
-    String fechaSeleccionadaStr = jTfecha.getText();
-        System.out.println(fechaSeleccionadaStr);
-    if (fechaSeleccionadaStr.isEmpty()) {
-        // Manejar el caso en el que no se ingresó una fecha válida
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese una fecha válida.");
-        return;
-    }
-
-    try {
-        LocalDate fechaSeleccionada = LocalDate.parse(fechaSeleccionadaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println(fechaSeleccionada);
-        System.out.println("Tamaño de listaF: " + listaF.size());
-        for (Venta venta : listaF) {
-            System.out.println("hol111");
-            if (venta.getFechaVenta().isEqual(fechaSeleccionada)) {
-                System.out.println("entre");
-                Producto producto = obtenerProductoDeVenta(venta);
-                modelo.addRow(new Object[]{venta.getCliente().getApellido(), producto.getNombreProducto()});
-            }
-            System.out.println("-----");
-        }
-    } catch (DateTimeParseException ex) {
-        // Manejar el caso en el que la fecha ingresada no es válida
-        JOptionPane.showMessageDialog(this, "La fecha ingresada no es válida. Utilice el formato 'yyyy-MM-dd'.");
-    }
+        
+        
+        
+//    // Borrar las filas existentes en la tabla
+//    borrarFilasTabla();
+//    
+//    String fechaSeleccionadaStr = jTfecha.getText();
+//        System.out.println(fechaSeleccionadaStr);
+//    if (fechaSeleccionadaStr.isEmpty()) {
+//        // Manejar el caso en el que no se ingresó una fecha válida
+//        JOptionPane.showMessageDialog(this, "Por favor, ingrese una fecha válida.");
+//        return;
+//    }
+//
+//    try {
+//        LocalDate fechaSeleccionada = LocalDate.parse(fechaSeleccionadaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        System.out.println(fechaSeleccionada);
+//        System.out.println("Tamaño de listaF: " + listaF.size());
+//        for (DetalleVenta venta : listaF) {
+//            System.out.println("hol111");
+//            if (venta.getFechaVenta().isEqual(fechaSeleccionada)) {
+//                System.out.println("entre");
+//                Producto producto = obtenerProductoDeVenta(venta);
+//                modelo.addRow(new Object[]{venta.getCliente().getApellido(), producto.getNombreProducto()});
+//            }
+//            System.out.println("-----");
+//        }
+//    } catch (DateTimeParseException ex) {
+//        // Manejar el caso en el que la fecha ingresada no es válida
+//        JOptionPane.showMessageDialog(this, "La fecha ingresada no es válida. Utilice el formato 'yyyy-MM-dd'.");
+//    }
 }
 
 private Producto obtenerProductoDeVenta(Venta venta) {
