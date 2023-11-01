@@ -152,7 +152,7 @@ public class VentaXfecha extends javax.swing.JInternalFrame {
                 List <DetalleVenta> Dv = new VentaData().listarXFecha(fechaLd);
     System.out.println(fechaLd);
                  for (DetalleVenta detalleVenta : Dv) {
-                     modelo.addRow(new Object[]{detalleVenta.getProducto().getNombreProducto(),detalleVenta.getVenta().getCliente().getApellido()});
+                     modelo.addRow(new Object[]{detalleVenta.getVenta().getCliente().getApellido(),detalleVenta.getProducto().getNombreProducto()});
                  }
                 
              }else{
